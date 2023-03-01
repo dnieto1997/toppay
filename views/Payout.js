@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import React from 'react'
 import {
     SafeAreaView,
@@ -6,16 +5,12 @@ import {
     StatusBar,
     StyleSheet,View,Text,TouchableOpacity
   } from 'react-native';
- 
-
-
- 
-
- const Dashboard = () => {
-  
+const Payout = () => {
   return (
-    <Text>dashboard</Text>
+    <Text>
+   Payout   
+    </Text>
   )
 }
 
-export default Dashboard
+export default Payout

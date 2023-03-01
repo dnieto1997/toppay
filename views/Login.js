@@ -54,9 +54,9 @@ const Login = ({navigation}) => {
         if (resJson.status === 1) {
            navigation.navigate('Dashboard')
            return
-        } else if(resJson.status != 1){
+        } else if(resJson.status === 0){
           mostrarAlerta()
-          return
+          
         }
 
       } catch (err) {
