@@ -31,7 +31,12 @@ const App = () => {
 
 
 
-<Stack.Screen name='Dashboard' component={Dashboard}/>
+<Stack.Screen name='Dashboard' component={Dashboard}   options ={(navigation)=>({
+       
+       headerTitleAlign:'center', headerShown: false
+    
+    
+         })}/>
 
     </Stack.Navigator>
 

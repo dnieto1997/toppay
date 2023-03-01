@@ -20,38 +20,50 @@ const Login = ({navigation}) => {
   const [password,guardarPassword] =useState('')
   useEffect(()=>{
 
-    handleSubmit()
+    consumirApi()
     
     },[])
        
+
+  const  consumirApi = async () => {
       
- 
+
+    try {
+        
     
 
-   
+   const res = await fetch('http://129.80.238.214:3000/api/auth/login/', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      user : `${usuario}`,
+      password: `${password}`,
+    }),
+  });
 
 
-  const  handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const res = await fetch("http://129.80.238.214:3000/api/auth/login", {
-          method: "POST",
-          body: JSON.stringify({
-            "user": `{usuario}`,
-            "password": `{password}`
-           
-          }),
-        });
+
+
+
         const resJson = await res.json();
+       
         console.log(resJson)
-        if (res.status === 1) {
+        if (resJson.status === 1) {
            navigation.navigate('Dashboard')
-        } else {
+           return
+        } else if(resJson.status != 1){
           mostrarAlerta()
+          return
         }
+
       } catch (err) {
         console.log(err);
       }
+    
+    
     };
 
 
@@ -99,7 +111,7 @@ const mostrarAlerta =() =>{
      secureTextEntry={true}
      
      />
-     <Button onPress={()=>handleSubmit()} style={styles.boton}><Text style={styles.btnText} >Iniciar sesion</Text></Button>
+     <Button onPress={()=>consumirApi()} style={styles.boton}><Text style={styles.btnText} >Iniciar sesion</Text></Button>
    
     </View>
     
