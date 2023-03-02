@@ -31,7 +31,7 @@ const App = () => {
 
 
 
-<Stack.Screen name='Dashboard' component={Dashboard}   options ={(navigation)=>({
+<Stack.Screen name='Dashboard' component={Dashboard}   options ={(navigation,props)=>({
        
         headerShown: false
     

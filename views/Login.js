@@ -7,8 +7,7 @@ import {
   } from 'react-native';
   import globalStyles from './global/styles';
   import axios from 'axios';
-  
- 
+ import AsyncStorage from '@react-native-async-storage/async-storage';
 
   import {TextInput,Button} from 'react-native-paper'
 
@@ -26,7 +25,6 @@ const Login = ({navigation}) => {
        
 
   const  consumirApi = async () => {
-      
 
     try {
         
@@ -45,14 +43,16 @@ const Login = ({navigation}) => {
   });
 
 
-
-
-
         const resJson = await res.json();
+        const token=resJson.token
        
+        await AsyncStorage.setItem('token',token)
+
         console.log(resJson)
         if (resJson.status === 1) {
-           navigation.navigate('Dashboard')
+           
+
+          navigation.navigate('Dashboard')
            return
         } else if(resJson.status === 0){
           mostrarAlerta()
@@ -64,7 +64,9 @@ const Login = ({navigation}) => {
       }
     
     
-    };
+    }
+
+  
 
 
 

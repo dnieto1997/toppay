@@ -10,8 +10,9 @@ const globalStyles = StyleSheet.create({
         paddingHorizontal:40,
         transform: [{translateY:80}],
         shadowColor: "#000",
-        shadowColor: "#000",
-        
+        shadowColor: "#000000",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
         shadowOffset: {
             width: 0,
             height: 7,
@@ -19,6 +20,18 @@ const globalStyles = StyleSheet.create({
         shadowOpacity: 0.44,
         shadowRadius: 10.32,
         elevation: 5
+    },contenedor2:{
+
+        backgroundColor:'#FFF',
+        marginHorizontal:10,
+        borderRadius:20,
+        paddingVertical:40,
+        marginTop:10,
+        shadowColor: "red",
+        shadowOpacity: 0.8,
+        shadowRadius: 10,
+        
+        
     }
 
 
