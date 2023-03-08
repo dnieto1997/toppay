@@ -10,7 +10,7 @@ import Login from './views/Login'
 
 import Dashboard from './views/Dashboard';
 
-import { View } from 'react-native/Libraries/Components/View/View';
+
 
 
 const Stack= createStackNavigator()
@@ -40,6 +40,8 @@ const App = () => {
     
     
          })}/>
+
+
 
     </Stack.Navigator>
 
