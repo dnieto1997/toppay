@@ -3,26 +3,57 @@ import React from 'react'
 
 
 
-import Payout from '../views/Payout'
-import { NavigationContainer } from '@react-navigation/native'
-import Payin from '../views/src/Payin'
-import Utilidades from '../views/src/Utilidades'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import Dashboard from '../views/Dashboard';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
+
+import globalStyles from '../views/global/styles';
+import { View,Text,StyleSheet} from 'react-native';
+
+
 
 
 const Tab = () => {
-  const Drawer = createDrawerNavigator();
+ 
  
  return (
-    
-  <Drawer.Navigator>
-    <Drawer.Screen name="Dashboard " component={Dashboard} />
-  <Drawer.Screen name="Payout" component={Payout} />
-  <Drawer.Screen name="Payin" component={Payin} />
-  <Drawer.Screen name="Utilidades" component={Utilidades} />
-</Drawer.Navigator>
+    <DrawerContentScrollView style={styles.contenedor2} >
+<View style={styles.contenedor} >
+  
+ <Text style={styles.texto1}>Menu</Text>
+  
+  </View>
+
+
+
+    </DrawerContentScrollView>
   )
 }
 
+const styles =StyleSheet.create({
+  contenedor2:{
+
+    backgroundColor:'#4e2d87',
+    padding:15
+    
+},texto1:{
+  textAlign:'center',
+  fontSize:20,
+  fontWeight:'bold',
+  color:'#FFF',
+  textTransform:'uppercase'
+  
+
+},contenedor:{
+ 
+  borderRadius:5,
+  padding:10,
+ borderTopColor:'#fff',
+ borderLeftColor:'#fff',
+ borderEndColor:'#fff',
+ borderStartColor:'#fff',
+ justifyContent: 'space-between',
+ backgroundColor: '#4e2d87',
+ borderWidth: 1
+}
+
+})
 export default Tab

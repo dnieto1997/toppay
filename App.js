@@ -9,7 +9,8 @@ import {createStackNavigator} from '@react-navigation/stack'
 import Login from './views/Login'
 
 import Dashboard from './views/Dashboard';
-import Tab from './nav/Tab';
+
+import { View } from 'react-native/Libraries/Components/View/View';
 
 
 const Stack= createStackNavigator()
@@ -20,7 +21,7 @@ const App = () => {
 
 
   return (
-    
+ 
     <NavigationContainer>
     <Stack.Navigator initialRouteName='Login'>
     <Stack.Screen name='Login' component={Login} 
@@ -43,10 +44,12 @@ const App = () => {
     </Stack.Navigator>
 
 
-
     
 
   </NavigationContainer>
+ 
+  
+  
   
    )
  }
