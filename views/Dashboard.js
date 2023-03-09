@@ -20,6 +20,7 @@ import {NavigationContainer} from '@react-navigation/native'
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer'
 import Dashboard1 from './Dashboard1';
 import Tab from '../nav/Tab';
+import Login from './Login';
 
 
 
@@ -39,11 +40,12 @@ const Drawer = createDrawerNavigator();
   
   <NavigationContainer independent={true}> 
       <Drawer.Navigator initialRouteName="Dashboard" drawerContent={(props)=><Tab{...props}/>} >
-      <Drawer.Screen name="Dashboard" component={Dashboard1} />
+      <Drawer.Screen name="Dashboard" component={Dashboard1} options={{}}/>
       <Drawer.Screen name="Graficos" component={Graficos} />
         <Drawer.Screen name="Payin" component={Payin} />
         <Drawer.Screen name="Payout" component={Payout} />
         <Drawer.Screen name="Utilidades" component={Utilidades} />
+        
       </Drawer.Navigator>
     </NavigationContainer>
  
