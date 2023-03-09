@@ -1,10 +1,7 @@
 import 'react-native-gesture-handler';
-import React from 'react'
+import React,{useState} from 'react'
 import {
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,View,Text,TouchableOpacity,Image,FlatList
+ FlatList,RefreshControl,View,ScrollView,StyleSheet
   } from 'react-native';
 
 
@@ -17,46 +14,63 @@ import Utilidades from '../views/src/Utilidades'
 
 
 import {NavigationContainer} from '@react-navigation/native'
-import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import Dashboard1 from './Dashboard1';
 import Tab from '../nav/Tab';
 import Login from './Login';
+import { Text } from 'react-native-paper';
 
 
 
 
-const Drawer = createDrawerNavigator();
 
+
+
+const Dashboard = () => {
  
-
- const Dashboard = () => {
  
  
-
+  const Drawer = createDrawerNavigator();
+ 
   
   return (
    
-   
-  
-  <NavigationContainer independent={true}> 
-      <Drawer.Navigator initialRouteName="Dashboard" drawerContent={(props)=><Tab{...props}/>} >
-      <Drawer.Screen name="Dashboard" component={Dashboard1} options={{}}/>
-      <Drawer.Screen name="Graficos" component={Graficos} />
-        <Drawer.Screen name="Payin" component={Payin} />
-        <Drawer.Screen name="Payout" component={Payout} />
-        <Drawer.Screen name="Utilidades" component={Utilidades} />
-        
-      </Drawer.Navigator>
-    </NavigationContainer>
  
-  
 
+
+
+     
+    <NavigationContainer independent={true}>
+        <Drawer.Navigator drawerContent={(props)=><Tab{...props}/>}  >
+        <Drawer.Screen name="Dashboard" component={Dashboard1}  />
+        <Drawer.Screen name="Graficos" component={Graficos} />
+          <Drawer.Screen name="Payin" component={Payin} />
+          <Drawer.Screen name="Payout" component={Payout} />
+          <Drawer.Screen name="Utilidades" component={Utilidades} />
+          
+        </Drawer.Navigator>
+      
+    
+        </NavigationContainer>
+    
+    
+     
    
- 
-  )
+    )
 }
 
+const styles=StyleSheet.create({
+
+container:{
+  backgroundColor:'red',
+ bottom:5
+}
+
+})
+export default Dashboard
 
 
 
-export default Dashboard 
+
+
+

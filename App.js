@@ -12,16 +12,14 @@ import Dashboard from './views/Dashboard';
 
 
 
-
-const Stack= createStackNavigator()
-
 const App = () => {
- 
-
-
-
+  const Stack= createStackNavigator()
+  
+   
   return (
- 
+   
+   
+   
     <NavigationContainer>
     <Stack.Navigator initialRouteName='Login'>
     <Stack.Screen name='Login' component={Login} 
@@ -50,11 +48,19 @@ const App = () => {
 
   </NavigationContainer>
  
-  
+ 
   
   
    )
- }
+}
+
+
+
+
+
+
+
+
 
 
 export default App;
