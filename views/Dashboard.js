@@ -42,7 +42,7 @@ const Dashboard = () => {
      
     <NavigationContainer independent={true}>
         <Drawer.Navigator drawerContent={(props)=><Tab{...props}/>}  >
-        <Drawer.Screen name="Dashboard" component={Dashboard1}  />
+        <Drawer.Screen name="Dashboard1" component={Dashboard1}  />
         <Drawer.Screen name="Graficos" component={Graficos} />
           <Drawer.Screen name="Payin" component={Payin} />
           <Drawer.Screen name="Payout" component={Payout} />
