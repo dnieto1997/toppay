@@ -6,9 +6,9 @@ import React from 'react'
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 
-import { View,Text,StyleSheet,Image} from 'react-native';
+import { View,Text,StyleSheet,Image,Alert} from 'react-native';
 import { Button } from 'react-native-paper';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -17,7 +17,33 @@ import { Button } from 'react-native-paper';
 
 const Tab = ({navigation}) => {
  
+  const CerrarSesion = () =>{
+    Alert.alert(
+      'LOGOUT',
+      'Quieres Cerrar Sesion?',
+     
+     
+      [
+     {text:'No',style:'cancel'},
+     {text:'Si',onPress:async() =>{
 
+      try {
+        
+        await AsyncStorage.clear()
+      
+        navigation.navigate('Login')
+    
+      } catch (error) {
+        console.log(error)
+      }
+     }}
+     
+    
+      ]
+      
+    )
+    
+     }
 
  return (
     <DrawerContentScrollView style={styles.contenedor2} >
@@ -35,7 +61,7 @@ const Tab = ({navigation}) => {
   <Button title='Graficos' onPress={()=>navigation.navigate('Graficos')} style={styles.boton} icon={require('../assets/img/graficos.png')}><Text style={styles.texto2}> Graficas</Text></Button>
   
   
-  <Button title='Graficos' onPress={()=>navigation.navigate('Graficos')} style={styles.botonCerrar}> <Image source={require('../assets/img/logout.png')} style={styles.imagen}/><Text style={styles.texto2}> LOGOUT</Text></Button>
+  <Button title='Logout' onPress={()=>CerrarSesion()} style={styles.botonCerrar}> <Image source={require('../assets/img/logout.png')} style={styles.imagen}/><Text style={styles.texto2}> LOGOUT</Text></Button>
   
   </View>   
 
@@ -98,14 +124,15 @@ const styles =StyleSheet.create({
   textTransform:'uppercase'
  
 },botonCerrar:{
-  borderRadius: 4,
+ 
   backgroundColor: '#D32F2F',
   marginHorizontal:40,
   marginTop:80,
   marginRight:30,
   top:30,
   alignSelf:'baseline',
-  right:50
+  right:40,
+  borderRadius:3
  
 
 },imagen:{

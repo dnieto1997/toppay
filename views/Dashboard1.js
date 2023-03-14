@@ -15,6 +15,7 @@ import {
 
 import globalStyles from './global/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Pais from './src/Pais';
 
 
 
@@ -88,7 +89,7 @@ const Dashboard1 = () => {
         setTodaymoneyin(total);
         
       } catch (err) {
-        console.log(err);
+        
       }
     };
   
@@ -109,7 +110,7 @@ const Dashboard1 = () => {
         const total = result[0].total;
         settodaystransactionin(total);
       } catch (err) {
-        console.log(err);
+     
       }
     };
   
@@ -130,7 +131,7 @@ const Dashboard1 = () => {
         const total = result[0].total;
         setttodaystransactionerrorin(total);
       } catch (err) {
-        console.log(err);
+        
       }
     };
   
@@ -151,7 +152,7 @@ const Dashboard1 = () => {
         const total = result[0].total;
         settodaymoneyout(total);
       } catch (err) {
-        console.log(err);
+        
       }
     };
   
@@ -172,7 +173,7 @@ const Dashboard1 = () => {
         const total = result[0].total;
         settodaystransactionout(total);
       } catch (err) {
-        console.log(err);
+        
       }
     };
   return (
@@ -184,7 +185,7 @@ const Dashboard1 = () => {
 
 
   
-       
+       <Pais/>
    
         <View style={styles.contenedor}>
           <View style={globalStyles.contenedor2}>

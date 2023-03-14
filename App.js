@@ -9,7 +9,7 @@ import {createStackNavigator} from '@react-navigation/stack'
 import Login from './views/Login'
 
 import Dashboard from './views/Dashboard';
-
+import Auth from './views/Auth';
 
 
 const App = () => {
@@ -21,7 +21,17 @@ const App = () => {
    
    
     <NavigationContainer>
-    <Stack.Navigator initialRouteName='Login'>
+    <Stack.Navigator >
+    
+    
+    <Stack.Screen name='Auth' component={Auth}   options ={(navigation,props)=>({
+       
+       headerShown: false
+   
+   
+        })}/>
+    
+    
     <Stack.Screen name='Login' component={Login} 
    options ={(navigation)=>({
        
@@ -38,6 +48,8 @@ const App = () => {
     
     
          })}/>
+
+
 
 
 

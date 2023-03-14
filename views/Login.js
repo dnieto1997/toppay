@@ -6,10 +6,8 @@ import {
     StyleSheet,View,Text,Image,Alert
   } from 'react-native';
   import globalStyles from './global/styles';
-  import axios from 'axios';
  import AsyncStorage from '@react-native-async-storage/async-storage';
-
-  import {TextInput,Button} from 'react-native-paper'
+import {TextInput,Button} from 'react-native-paper'
 
 
 
@@ -48,16 +46,22 @@ const Login = ({navigation}) => {
         const token= resJson.token
        
       
-        console.log(token)
+       
         if (resJson.status === 1) {
           await AsyncStorage.setItem('token',token)
+          await AsyncStorage.setItem('user',usuario)
+          await AsyncStorage.setItem('password',password)
+          console.log('tokendelogin',token)
+          console.log(usuario)
+          console.log(password)
           navigation.navigate('Dashboard')
            return
         } else if(resJson.status === 0){
           mostrarAlerta()
           
         }
-        console.log(token)
+       
+        
         
 
       } catch (err) {

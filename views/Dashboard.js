@@ -18,7 +18,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import Dashboard1 from './Dashboard1';
 import Tab from '../nav/Tab';
 import Login from './Login';
-import { Text } from 'react-native-paper';
+
+import Pais from './src/Pais';
 
 
 
@@ -37,22 +38,27 @@ const Dashboard = () => {
    
  
 
-
+<>
 
      
-    <NavigationContainer independent={true}>
-        <Drawer.Navigator drawerContent={(props)=><Tab{...props}/>}  >
-        <Drawer.Screen name="Dashboard1" component={Dashboard1}  />
+    <NavigationContainer independent={true}  >
+        <Drawer.Navigator drawerContent={(props)=><Tab{...props}/>} >
+        <Drawer.Screen name="Dashboard" component={Dashboard1}  />
         <Drawer.Screen name="Graficos" component={Graficos} />
           <Drawer.Screen name="Payin" component={Payin} />
           <Drawer.Screen name="Payout" component={Payout} />
           <Drawer.Screen name="Utilidades" component={Utilidades} />
-          
+          <Drawer.Screen name="Login" component={Login}  options ={()=>({
+       
+       headerShown: false
+   
+   
+        })}/>
         </Drawer.Navigator>
       
     
         </NavigationContainer>
-    
+        </>
     
      
    
