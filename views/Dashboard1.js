@@ -29,7 +29,7 @@ const Dashboard1 = () => {
     setTimeout(()=>{
   setRefresh(false)
   
-    },1000)
+    },10)
     }
     
  
@@ -47,7 +47,7 @@ const Dashboard1 = () => {
       try {
         const tokenStorage =await AsyncStorage.getItem('token') 
         setToken(tokenStorage)
-        console.log(tokenStorage)
+        
       
      
       } catch (error) {
@@ -58,7 +58,7 @@ const Dashboard1 = () => {
       }
       obtenerToken()
       
-      },[])
+      })
   
   
   

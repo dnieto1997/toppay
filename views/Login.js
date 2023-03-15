@@ -1,152 +1,153 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect} from 'react'
 import {
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,View,Text,Image,Alert
-  } from 'react-native';
-  import globalStyles from './global/styles';
- import AsyncStorage from '@react-native-async-storage/async-storage';
-import {TextInput,Button} from 'react-native-paper'
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet, View, Text, Image, Alert
+} from 'react-native';
+import globalStyles from './global/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TextInput, Button } from 'react-native-paper'
 
 
 
 
-const Login = ({navigation}) => {
-  const [usuario,guardarUsuario] =useState('')
-  const [password,guardarPassword] =useState('')
-  useEffect(()=>{
+const Login = ({ navigation }) => {
+  const [usuario, guardarUsuario] = useState('')
+  const [password, guardarPassword] = useState('')
+ 
+
+
+  useEffect(() => {
 
     consumirApi()
-    
-    },[])
-       
 
-  const  consumirApi = async () => {
+  },[])
+
+
+  const consumirApi = async () => {
+    
 
     try {
-        
-    
 
-   const res = await fetch('http://129.80.238.214:3000/api/auth/login/', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      user : `${usuario}`,
-      password: `${password}`,
-    }),
-  });
-
-
-        const resJson = await res.json();
-        
-        const token= resJson.token
-       
       
-       
-        if (resJson.status === 1) {
-          await AsyncStorage.setItem('token',token)
-          await AsyncStorage.setItem('user',usuario)
-          await AsyncStorage.setItem('password',password)
-          console.log('tokendelogin',token)
-          console.log(usuario)
-          console.log(password)
-          navigation.navigate('Dashboard')
-           return
-        } else if(resJson.status === 0){
-          mostrarAlerta()
-          
-        }
-       
-        
-        
+      const res = await fetch('http://129.80.238.214:3000/api/auth/login/', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: `${usuario}`,
+          password: `${password}`,
+        }),
+      });
 
-      } catch (err) {
-        console.log(err);
+
+      const resJson = await res.json();
+      const token =resJson.token
+     
+     
+
+      if (resJson.status === 1) {
+
+        await AsyncStorage.setItem('token', token)
+        await AsyncStorage.setItem('user', usuario)
+        await AsyncStorage.setItem('password', password)
+        console.log(token)
+        console.log(usuario)
+        console.log(password)
+       
+        navigation.navigate('Dashboard')
+        return
+      } else if (resJson.status === 0) {
+        mostrarAlerta()
+
       }
-    
-    
+
+
+
+
+    } catch (err) {
+      console.log(err);
     }
 
-  
 
-
-
-const mostrarAlerta =() =>{
-
-  Alert.alert('Error','Usuario y contraseña incorrecta',[{text:'Ok'}])
-}
+  }
 
 
 
 
- 
 
- 
- return (
+  const mostrarAlerta = () => {
+
+    Alert.alert('Error', 'Usuario y contraseña incorrecta', [{ text: 'Ok' }])
+  }
+
+
+
+
+
+
+
+  return (
+
     
-    
-    <View style={globalStyles.contenedor}>
-    
-     
-  
+      <View style={globalStyles.contenedor}>
+
+        <Image source={require('../assets/img/logo.png')} style={styles.imagen} />
+
+        <TextInput
+          label="Username"
+          placeholder='Username'
+          style={styles.input}
+          onChangeText={texto => guardarUsuario(texto)}
+          value={usuario}
 
 
-<Image source={require('../assets/img/logo.png') } style ={styles.imagen}/>
-
-        
-  <TextInput
-     label="Username"
-     placeholder='Username'
-     style={styles.input}
-     onChangeText={texto => guardarUsuario(texto)}
-     value={usuario}
-    
-     
-     />
+        />
 
 
-<TextInput
-     label="Password"
-     placeholder='Password'
-     style={styles.input}
-     onChangeText={texto => guardarPassword(texto)}
-     value={password}
-     secureTextEntry={true}
-     
-     />
-     <Button onPress={()=>consumirApi()} style={styles.boton}><Text style={styles.btnText} >Iniciar sesion</Text></Button>
+        <TextInput
+          label="Password"
+          placeholder='Password'
+          style={styles.input}
+          onChangeText={texto => guardarPassword(texto)}
+          value={password}
+          secureTextEntry={true}
+
+        />
+        <Button onPress={() => consumirApi()} style={styles.boton}><Text style={styles.btnText} >Iniciar sesion</Text></Button>
+
+      </View>
+
    
-    </View>
-    
+
   )
 }
 
 
 const styles = StyleSheet.create({
 
-input:{
-  marginBottom:20,
-  backgroundColor:'transparent'
+  input: {
+    marginBottom: 20,
+    backgroundColor: 'transparent'
 
-},imagen:{
-  width:200,
-  height:200,
-  alignSelf:'center'
-}, boton:{
-  backgroundColor:'#8a2be2'
-  
-},btnText:{
-color:'#fff',
-fontWeight:'bold',
-fontSize:14,
-textTransform:'uppercase'
+  }, imagen: {
+    width: 200,
+    height: 200,
+    alignSelf: 'center'
+  }, boton: {
+    backgroundColor: '#8a2be2'
+
+  }, btnText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 14,
+    textTransform: 'uppercase'
 
 
-}
+  }
 
 
 

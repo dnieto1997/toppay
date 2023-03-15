@@ -17,7 +17,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = ({navigation}) => {
  
-  const CerrarSesion = () =>{
+  const CerrarSesion = async() =>{
+    
+    
+     
+        AsyncStorage.removeItem('user')
+        AsyncStorage.removeItem('password')
     Alert.alert(
       'LOGOUT',
       'Quieres Cerrar Sesion?',
@@ -25,17 +30,15 @@ const Tab = ({navigation}) => {
      
       [
      {text:'No',style:'cancel'},
-     {text:'Si',onPress:async() =>{
+     {text:'Si',onPress: async() =>{
+      AsyncStorage.clear()
+      .then(
+          res => {
+              navigation.navigate('Login')
+              AsyncStorage.clear()
+          }
+      )
 
-      try {
-        
-        await AsyncStorage.clear()
-      
-        navigation.navigate('Login')
-    
-      } catch (error) {
-        console.log(error)
-      }
      }}
      
     
