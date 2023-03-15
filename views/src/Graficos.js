@@ -59,6 +59,7 @@ useEffect(()=>{
 
       const resJson = await res.json();
     setResultado(resJson)
+    console.log(resJson)
     
      
 
@@ -67,10 +68,10 @@ useEffect(()=>{
     }
     
 
+    
   }
 
-console.log(fechafin)
-console.log(fechainicio)
+
 
 
 
