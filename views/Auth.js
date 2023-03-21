@@ -41,18 +41,18 @@ const Auth = ({navigation}) =>{
 
         if(tokenapi!=tokenstorage){
          
-         // Alert.alert(
-         //   'Alerta',
-         //   'Token Vencido',
-         //   [
-         //  {text:'Ok',onPress:()=>{
-         //   navigation.navigate('Login')
+         Alert.alert(
+           'Alerta',
+         'Token Vencido',
+          [
+          {text:'Ok',onPress:()=>{
+           navigation.navigate('Login')
            
           
-         //  }} 
-        //    ]
+         }} 
+           ]
             
-        //  )
+         )
    
       console.log('algo')
           

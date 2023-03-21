@@ -61,7 +61,7 @@ const Tab = ({navigation}) => {
   <Button title='Payout' onPress={()=>navigation.navigate('Payout')} style={styles.boton} icon={require('../assets/img/payout.png')}><Text style={styles.texto2} > Pay out</Text></Button>
   <Button title='Payin' onPress={()=>navigation.navigate('Payin')} style={styles.boton} icon={require('../assets/img/payin.png')} ><Text style={styles.texto2}> Pay in</Text></Button>
   <Button title='Utilidades' onPress={()=>navigation.navigate('Utilidades')} style={styles.boton} icon={require('../assets/img/utilidades.png')} ><Text style={styles.texto2}> Utilidades</Text></Button>
-  <Button title='Graficos' onPress={()=>navigation.navigate('Graficos')} style={styles.boton} icon={require('../assets/img/graficos.png')}><Text style={styles.texto2}> Graficas</Text></Button>
+  
   
   
   <Button title='Logout' onPress={()=>CerrarSesion()} style={styles.botonCerrar}> <Image source={require('../assets/img/logout.png')} style={styles.imagen}/><Text style={styles.texto2}> LOGOUT</Text></Button>
