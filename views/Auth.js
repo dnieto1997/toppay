@@ -36,35 +36,10 @@ const Auth = ({navigation}) =>{
         }
         
         }
+        
         obtenerToken()
 
-
-        if(tokenapi!=tokenstorage){
-         
-         Alert.alert(
-           'Alerta',
-         'Token Vencido',
-          [
-          {text:'Ok',onPress:()=>{
-           navigation.navigate('Login')
-           
-          
-         }} 
-           ]
-            
-         )
-   
-      console.log('algo')
-          
-        }else {
-         navigation.navigate('Dashboard')
-          
-        }
-
-
-   
-
-
+      
         
         })
 
@@ -92,7 +67,40 @@ const Auth = ({navigation}) =>{
                 console.log(err);
               }  
 
+           
+              if(tokenapi!=tokenstorage){
+         
+                Alert.alert(
+                  'Alerta',
+                  'Token Vencido',
+                  [
+                 {text:'Ok',onPress:()=>{
+                  navigation.navigate('Login')
+                  
+                 
+                 }} 
+                 ]
+                   
+                )
+          
+             console.log('algo')
+            
+                 
+               }else {
+                navigation.navigate('Dashboard')
+                 
+               }
+           
+           
+           
+              
             }
+
+
+
+            console.log(tokenapi)
+            console.log(tokenstorage)
+        
     return(
        <></>
         )

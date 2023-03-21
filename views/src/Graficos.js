@@ -67,8 +67,8 @@ const Graficos = () => {
     if (fechainicio.getDate() > fechafin.getDate()) {
       mostrarAlerta()
       
-      setfechainicio(null)
-      setfechafin(null)
+      setfechainicio('')
+      setfechafin('')
      
     } else {
       buscarFecha()
@@ -170,7 +170,7 @@ const Graficos = () => {
      
 <View>
  <Picker onValueChange={(valor)=>setStatus(valor)} selectedValue={status} style={{textAlign:'center'}}  >
-       
+       <Picker.Item label='-Seleccione estado---' value=""/>
         <Picker.Item label='Success' value="1"/>
         <Picker.Item label='Declined' value="3"/>
         
