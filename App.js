@@ -10,6 +10,7 @@ import Login from './views/Login'
 
 import Dashboard from './views/Dashboard';
 import Auth from './views/Auth';
+import DashboardAliado from './views/DashboardAliado';
 
 
 const App = () => {
@@ -49,7 +50,12 @@ const App = () => {
     
          })}/>
 
-
+<Stack.Screen name='DashboardAliado' component={DashboardAliado}   options ={(navigation,props)=>({
+       
+       headerShown: false
+   
+   
+        })}/>
 
 
 

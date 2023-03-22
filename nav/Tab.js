@@ -57,18 +57,17 @@ const Tab = ({navigation}) => {
  <View style={styles.contenedor} >
  
  
-  <Button title='Dashboard'  onPress={()=>navigation.navigate('Dashboard') } style={styles.boton} icon={require('../assets/img/dashboard.png')} > <Text style={styles.texto2}> Dashboard</Text> </Button>
-  <Button title='Payout' onPress={()=>navigation.navigate('Payout')} style={styles.boton} icon={require('../assets/img/payout.png')}><Text style={styles.texto2} > Pay out</Text></Button>
-  <Button title='Payin' onPress={()=>navigation.navigate('Payin')} style={styles.boton} icon={require('../assets/img/payin.png')} ><Text style={styles.texto2}> Pay in</Text></Button>
-  <Button title='Utilidades' onPress={()=>navigation.navigate('Utilidades')} style={styles.boton} icon={require('../assets/img/utilidades.png')} ><Text style={styles.texto2}> Utilidades</Text></Button>
-  
-  
-  
-  <Button title='Logout' onPress={()=>CerrarSesion()} style={styles.botonCerrar}> <Image source={require('../assets/img/logout.png')} style={styles.imagen}/><Text style={styles.texto2}> LOGOUT</Text></Button>
+  <Button title='Dashboard'  onPress={()=>navigation.navigate('Dashboard') } style={styles.boton} icon={require('../assets/img/dashboard.png')} labelStyle={{ color: '#fff' }}> <Text style={styles.texto2} mode="outlined"> Dashboard</Text> </Button>
+  <Button title='Payout' onPress={()=>navigation.navigate('Payout')} style={styles.boton} icon={require('../assets/img/payout.png')} labelStyle={{ color: '#fff' }}><Text style={styles.texto2} > Pay out</Text></Button>
+  <Button title='Payin' onPress={()=>navigation.navigate('Payin')} style={styles.boton} icon={require('../assets/img/payin.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Pay in</Text></Button>
+  <Button title='Utilidades' onPress={()=>navigation.navigate('Utilidades')} style={styles.boton} icon={require('../assets/img/utilidades.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Utilidades</Text></Button>
   
   </View>   
+  
 
+  
 
+  
 
     </DrawerContentScrollView>
   )
@@ -78,7 +77,9 @@ const styles =StyleSheet.create({
   contenedor2:{
 
     backgroundColor:'#4e2d87',
-    padding:20
+    padding:20,
+    flex:1,
+    
     
     
 },texto1:{
@@ -87,24 +88,21 @@ const styles =StyleSheet.create({
   fontWeight:'bold',
   color:'#FFF',
   textTransform:'uppercase',
-  margin:10
+  margin:30
   
 
 },contenedor:{
  
-  borderRadius:5,
-  padding:5,
-
- justifyContent: 'space-between',
  backgroundColor: '#4e2d87',
+    borderRadius:5,
+    padding:5,
+   justifyContent: 'space-between',
+   backgroundColor: '#4e2d87',
+   paddingVertical:20
+    
+   
 
- marginVertical:30,
 
-
-
-
- 
- 
 },boton:{
 
   
@@ -112,30 +110,34 @@ const styles =StyleSheet.create({
   borderRadius: 4,
   backgroundColor: 'transparent',
   top:30,
-  margin:20,
-  alignItems:'center',
-  alignContent:'center',
-  alignSelf:'center',
+  margin:5,
+  alignItems:'flex-start',
+  alignContent:'flex-start',
+ 
+  borderColor: '#6200EE',
+  alignSelf:'flex-start'
+  
+
+  
+ 
 
   
 },texto2:{
 
  
-  fontSize:18,
+  fontSize:16,
   fontWeight:'bold',
   color:'#FFF',
   textTransform:'uppercase'
  
 },botonCerrar:{
  
-  backgroundColor: '#D32F2F',
-  marginHorizontal:40,
-  marginTop:80,
-  marginRight:30,
-  top:30,
-  alignSelf:'baseline',
-  right:40,
-  borderRadius:3
+
+marginRight:30,
+backgroundColor:'red',
+borderRadius:4,
+borderTopEndRadius:4
+
  
 
 },imagen:{

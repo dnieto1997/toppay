@@ -15,11 +15,11 @@ import {
 
 import globalStyles from './global/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Pais from './src/Pais';
 
 
 
-const Dashboard1 = () => {
+
+const DashboardAliado1 = () => {
  
  
   const [refresh,setRefresh] =useState(false)
@@ -61,10 +61,7 @@ const Dashboard1 = () => {
       
       })
   
-      useEffect(()=>{
-        Pais()
-        
-    })
+  
   
     useEffect(() => {
       todayMoneyin();
@@ -73,43 +70,14 @@ const Dashboard1 = () => {
       todayMoneyout();
       todaysTransactionout();
       
-     
-   
-      
-      
-     
     });
   
+useEffect(()=>{
+    Pais()
+},[pais])
 
 
 
-  
-    const Pais =async()=>{
-      try {
-          const res3 = await fetch(
-              'http://129.80.238.214:3000/api/menu',
-              {
-                method: 'GET',
-                headers: {
-                  'x-token': `${token}`,
-                }
-              },
-            );
-      
-      
-            const {pais} = await res3.json();
-          SetPais(pais)
-          console.log(pais)
-           
-     
-      } catch (error) {
-          
-      }
-     
-    
-    }
-
-   
 
 
 
@@ -128,18 +96,47 @@ const Dashboard1 = () => {
         const {result} = await res.json();
        
        const total = result[0].total;
+    
        
-       
-          setTodaymoneyin(total);
-        
+        setTodaymoneyin(total);
 
-      
-       
+    
         
       } catch (err) {
         
       }
     };
+
+
+
+
+
+   const Pais =async()=>{
+    try {
+        const res2 = await fetch(
+            'http://129.80.238.214:3000/api/menu',
+            {
+              method: 'GET',
+              headers: {
+                'x-token': `${token}`,
+              }
+            },
+          );
+    
+    
+          const {pais} = await res2.json();
+          SetPais(pais)
+          console.log(pais)
+         
+
+    } catch (error) {
+        
+    }
+   }
+
+
+
+
   
     const todaysTransactionin = async () => {
       try {
@@ -198,12 +195,7 @@ const Dashboard1 = () => {
         const {result} = await res.json();
   
         const total = result[0].total;
-       
-     
         settodaymoneyout(total);
-       
-       
-        
       } catch (err) {
         
       }
@@ -224,26 +216,11 @@ const Dashboard1 = () => {
         const {result} = await res.json();
   
         const total = result[0].total;
-       
-          
-      
-          settodaystransactionout(total)
-        
-       
-       
-          
-        
-         
-
-
+        settodaystransactionout(total);
       } catch (err) {
         
       }
-     
     };
-
-console.log(todaystransactionout)
- 
   return (
 
   
@@ -255,98 +232,97 @@ console.log(todaystransactionout)
   
        
    
-    <View style={styles.contenedor}>
-      <View style={globalStyles.contenedor2}>
-        <View style={styles.contenedor2}>
-          <View>
-            <Image
-              source={require('../assets/img/setting.png')}
-              style={styles.imagen}
-            />
-          </View>
-          <View style={{marginLeft: 10}}>
-            <Text style={styles.texto1}>Today's Money Cash in Success</Text>
-            <Text style={styles.texto2}>
-              {pais=="1"?formatearCantidad(todaymoneyin) : formatearCantidad2(todaymoneyin)}{' '}
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-
-    <View style={styles.contenedor}>
-      <View style={globalStyles.contenedor2}>
-        <View style={styles.contenedor2}>
-          <View>
-            <Image
-              source={require('../assets/img/cash.png')}
-              style={styles.imagen}
-            />
-          </View>
-          <View style={{marginLeft: 10}}>
-            <Text style={styles.texto1}>Today's Transaction Cash In</Text>
-            <Text style={styles.texto2}>
-              {todaystransactionin} {pais=="1"?"(COP)":"(SOL)"}{' '}
-              <Text style={{color: 'green'}}>Success</Text>
-            </Text>
-            <Text style={styles.texto2}>
-              {todaystransactionerrorin} {pais=="1"?"(COP)":"(SOL)"}
-              {''}
-              
-              
-               <Text style={{color: 'red'}}>Pending</Text>
-            </Text>
+        <View style={styles.contenedor}>
+          <View style={globalStyles.contenedor2}>
+            <View style={styles.contenedor2}>
+              <View>
+                <Image
+                  source={require('../assets/img/setting.png')}
+                  style={styles.imagen}
+                />
+              </View>
+              <View style={{marginLeft: 10}}>
+                <Text style={styles.texto1}>Today's Money Cash in Success</Text>
+                <Text style={styles.texto2}>
+                  {pais=="1"?formatearCantidad(todaymoneyin) : formatearCantidad2(todaymoneyin)}{' '}
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
-      </View>
-    </View>
-
-    <View style={styles.contenedor}>
-      <View style={globalStyles.contenedor2}>
-        <View style={styles.contenedor2}>
-          <View>
-            <Image
-              source={require('../assets/img/cash2.png')}
-              style={styles.imagen}
-            />
-          </View>
-          <View style={{marginLeft: 10}}>
-            <Text style={[styles.texto1, styles.texto0]}>
-              Today's Money Transaction Cash Out
-            </Text>
-
-            <Text style={styles.texto2}>
-             
-            {pais=="1"?formatearCantidad(todaymoneyout) : formatearCantidad2(todaymoneyout)}{' '}
-           
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-
-    <View style={styles.contenedor}>
-      <View style={globalStyles.contenedor2}>
-        <View style={styles.contenedor2}>
-          <View>
-            <Image
-              source={require('../assets/img/setting.png')}
-              style={styles.imagen}
-            />
-          </View>
-          <View style={{marginLeft: 10}}>
-            <Text style={styles.texto1}>Today's Transaction Cash Out</Text>
-            <Text style={styles.texto2}>
-            {todaystransactionout} {pais=="1"?"(COP)":"(SOL)"}{''}
-              <Text style={{color: 'green'}}>Success</Text>
-            </Text>
+  
+        <View style={styles.contenedor}>
+          <View style={globalStyles.contenedor2}>
+            <View style={styles.contenedor2}>
+              <View>
+                <Image
+                  source={require('../assets/img/cash.png')}
+                  style={styles.imagen}
+                />
+              </View>
+              <View style={{marginLeft: 10}}>
+                <Text style={styles.texto1}>Today's Transaction Cash In</Text>
+                <Text style={styles.texto2}>
+                  {todaystransactionin} {pais=="1"?"(COP)":"(SOL)"}{' '}
+                  <Text style={{color: 'green'}}>Success</Text>
+                </Text>
+                <Text style={styles.texto2}>
+                  {todaystransactionerrorin} {pais=="1"?"(COP)":"(SOL)"}
+                  {''}
+                  
+                  
+                   <Text style={{color: 'red'}}>Pending</Text>
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
-      </View>
-    </View>
-  </ScrollView>
-);
-   
+  
+        <View style={styles.contenedor}>
+          <View style={globalStyles.contenedor2}>
+            <View style={styles.contenedor2}>
+              <View>
+                <Image
+                  source={require('../assets/img/cash2.png')}
+                  style={styles.imagen}
+                />
+              </View>
+              <View style={{marginLeft: 10}}>
+                <Text style={[styles.texto1, styles.texto0]}>
+                  Today's Money Transaction Cash Out
+                </Text>
+  
+                <Text style={styles.texto2}>
+                 
+                {pais=="1"?formatearCantidad(todaymoneyout) : formatearCantidad2(todaymoneyout)}{' '}
+                  
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+  
+        <View style={styles.contenedor}>
+          <View style={globalStyles.contenedor2}>
+            <View style={styles.contenedor2}>
+              <View>
+                <Image
+                  source={require('../assets/img/setting.png')}
+                  style={styles.imagen}
+                />
+              </View>
+              <View style={{marginLeft: 10}}>
+                <Text style={styles.texto1}>Today's Transaction Cash Out</Text>
+                <Text style={styles.texto2}>
+                {todaystransactionout} {pais=="1"?"(COP)":"(SOL)"}{''}
+                  <Text style={{color: 'green'}}>Success</Text>
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -380,7 +356,7 @@ const styles = StyleSheet.create({
 });
 
 
-export default Dashboard1
+export default DashboardAliado1
 
 
 

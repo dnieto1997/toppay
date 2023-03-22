@@ -47,9 +47,24 @@ const Login = ({ navigation }) => {
       const resJson = await res.json();
       const token =resJson.token
      
+      const res2 = await fetch(
+        'http://129.80.238.214:3000/api/menu',
+        {
+          method: 'GET',
+          headers: {
+            'x-token': `${token}`,
+          }
+        },
+      );
+
+
+      const {tipo} = await res2.json();
+     console.log(tipo)
+     console.log(resJson)
      
 
-      if (resJson.status === 1) {
+
+      if (resJson.status === 1&&tipo==="MA") {
 
         await AsyncStorage.setItem('token', token)
         await AsyncStorage.setItem('user', usuario)
@@ -59,10 +74,20 @@ const Login = ({ navigation }) => {
         console.log(password)
        
         navigation.navigate('Dashboard')
-        return
+        
       } else if (resJson.status === 0) {
         mostrarAlerta()
 
+      }else if(resJson.status === 1&&tipo==="TE"){
+        await AsyncStorage.setItem('token', token)
+        await AsyncStorage.setItem('user', usuario)
+        await AsyncStorage.setItem('password', password)
+        console.log(token)
+        console.log(usuario)
+        console.log(password)
+       
+        navigation.navigate('DashboardAliado')
+        return
       }
 
 
