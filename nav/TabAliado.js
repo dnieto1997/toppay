@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const Tab = ({navigation}) => {
+const TabAliado = ({navigation}) => {
  
   const CerrarSesion = async() =>{
     
@@ -57,10 +57,9 @@ const Tab = ({navigation}) => {
  <View style={styles.contenedor} >
  
  
-  <Button title='Dashboard'  onPress={()=>{navigation.navigate('Dashboard');  navigation.closeDrawer();}  } style={styles.boton} icon={require('../assets/img/dashboard.png')} labelStyle={{ color: '#fff' }}> <Text style={styles.texto2} mode="outlined"> Dashboard</Text> </Button>
+  <Button title='Dashboard'  onPress={()=>navigation.navigate('Dashboard') } style={styles.boton} icon={require('../assets/img/dashboard.png')} labelStyle={{ color: '#fff' }}> <Text style={styles.texto2} mode="outlined"> Dashboard</Text> </Button>
   <Button title='Payout' onPress={()=>navigation.navigate('Payout')} style={styles.boton} icon={require('../assets/img/payout.png')} labelStyle={{ color: '#fff' }}><Text style={styles.texto2} > Pay out</Text></Button>
   <Button title='Payin' onPress={()=>navigation.navigate('Payin')} style={styles.boton} icon={require('../assets/img/payin.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Pay in</Text></Button>
-  <Button title='Utilidades' onPress={()=>navigation.navigate('Utilidades')} style={styles.boton} icon={require('../assets/img/utilidades.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Utilidades</Text></Button>
   
   </View>   
   
@@ -147,4 +146,4 @@ borderTopEndRadius:4
 }
 
 })
-export default Tab
+export default TabAliado

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
 import { PieChart } from 'react-native-chart-kit';
-import { View, ScrollView, StyleSheet, Alert, Button } from 'react-native';
+import { Dimensions,View, ScrollView, StyleSheet, Alert,Button} from 'react-native';
 import globalStyles from '../global/styles';
-import { Text } from 'react-native-paper';
+import { Text} from 'react-native-paper';
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from '@react-native-picker/picker';
-
 
 
 
@@ -56,20 +55,19 @@ const Payin = () => {
 
   useEffect(() => {
 
-
-   Validacion()
+     Validacion()
+    
 
 
   }, [])
-
-
 
 
   const Validacion = () => {
     if (fechainicio.getDate() > fechafin.getDate()) {
       mostrarAlerta()
       
-      
+      setfechainicio('')
+      setfechafin('')
      
     } else {
       buscarFecha()
@@ -81,54 +79,56 @@ const Payin = () => {
 
 
 
+
+
   const buscarFecha = async () => {
 
 
 
-    const FechaInicioFormat = fechainicio.getFullYear() + "-" + (fechainicio.getMonth() + 1) + "-" + fechainicio.getDate()
-    const FechaFinFormat = fechafin.getFullYear() + "-" + (fechafin.getMonth() + 1) + "-" + fechafin.getDate()
+      const FechaInicioFormat = fechainicio.getFullYear() + "-" + (fechainicio.getMonth() + 1) + "-" + fechainicio.getDate()
+      const FechaFinFormat = fechafin.getFullYear() + "-" + (fechafin.getMonth() + 1) + "-" + fechafin.getDate()
 
 
-    try {
+      try {
 
-      const res = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payinsuccess', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fechainicio: `${FechaInicioFormat}`,
-          fechafin: `${FechaFinFormat}`,
-          status: `${status}`
-        }),
-      });
+        const res = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payinsuccess', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fechainicio: `${FechaInicioFormat}`,
+            fechafin: `${FechaFinFormat}`,
+            status:`${status}`
+          }),
+        });
 
-      const resJson = await res.json();
+        const resJson = await res.json();
 
-      resJson.forEach(function (dato) {
+        resJson.forEach(function (dato) {
 
-        const generarColor = () => "#000000".replace(/0/g, () => (~~(Math.random() * 16)).toString(16))
-        const legendFontColor = '#7F7F7F'
-        const legendFontSize = 15
-        dato.color = generarColor(color)
-        dato.legendFontColor = legendFontColor
-        dato.legendFontSize = legendFontSize,
-          dato.name = dato.merchant_name
-        dato.population = dato.cantidad
+          const generarColor = () => "#000000".replace(/0/g, () => (~~(Math.random() * 16)).toString(16))
+          const legendFontColor = '#7F7F7F'
+          const legendFontSize = 15
+          dato.color = generarColor(color)
+          dato.legendFontColor = legendFontColor
+          dato.legendFontSize = legendFontSize,
+            dato.name = dato.merchant_name
+          dato.population = dato.cantidad
 
-      });
-
-
-
-      setResultado(resJson)
+        });
 
 
 
-    } catch (err) {
-      console.log(err);
-    }
+        setResultado(resJson)
 
+
+
+      } catch (err) {
+        console.log(err);
+      }
+    
 
 
 
@@ -139,9 +139,9 @@ const Payin = () => {
 
 
   const mostrarAlerta = () => {
-
-    Alert.alert('Error', 'La fecha inicial no puede ser mayor a la fecha final', [{ text: 'Ok' }])
-
+    
+      Alert.alert('Error', 'La fecha inicial no puede ser mayor a la fecha final', [{ text: 'Ok' }])
+   
 
   }
 
@@ -153,7 +153,7 @@ const Payin = () => {
   console.log(resultado)
   console.log(status)
   console.log(fechainicio)
-  console.log(fechafin)
+   console.log(fechafin)
 
 
 
@@ -166,16 +166,16 @@ const Payin = () => {
 
     <ScrollView>
 
-
-      <View>
-        <Picker onValueChange={(valor) => setStatus(valor)} selectedValue={status} style={{ textAlign: 'center' }}  >
-          <Picker.Item label='-- Seleccione estado --' value="" />
-          <Picker.Item label='Success' value="1" />
-          <Picker.Item label='Declined' value="3" />
-
+     
+<View>
+ <Picker onValueChange={(valor)=>setStatus(valor)} selectedValue={status} style={{textAlign:'center'}}  >
+       <Picker.Item label='-Seleccione estado---' value=""/>
+        <Picker.Item label='Success' value="1"/>
+        <Picker.Item label='Declined' value="3"/>
+        
         </Picker>
-      </View>
-
+        </View>
+     
       <View style={styles.contenedor}>
 
 
@@ -204,16 +204,16 @@ const Payin = () => {
         />
 
 
-
+    
       </View>
-
-      <View style={{ top: 20, alignSelf: 'center' }}>
-        <Button onPress={Validacion} title="Buscar" color='#6f42c1' ></Button>
+      
+      <View style={{top:20,alignSelf:'center'}}>
+      <Button onPress={Validacion} title="Buscar" color='#6f42c1' ></Button>
       </View>
       <View  >
         <PieChart
           data={resultado}
-          width={390}
+          width={Dimensions.get('window').width - 14}
           height={233}
           chartConfig={{
             backgroundColor: '#1cc910',
@@ -223,18 +223,18 @@ const Payin = () => {
             color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
             style: {
               borderRadius: 16,
-
-
+              
+              
             },
           }}
           style={{
             marginVertical: 20,
             borderRadius: 12,
-            top: 10,
-          }}
+            top:30,
+                    }}
           accessor="population"
           backgroundColor="transparent"
-
+          
           absolute //for the absolute number remove if you want percentage
         />
 
@@ -252,29 +252,29 @@ const styles = StyleSheet.create({
     width: 170,
     borderRadius: 3,
     alignItems: 'center',
-    top: 20
+    top:20
 
   },
   texto: {
     textAlign: 'center',
     color: '#fff',
     textTransform: 'uppercase',
-    fontSize: 17
-
-  }, contenedor: {
-    top: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    columnGap: 10,
-    alignSelf: 'center'
-  }, botonBuscar: {
-    top: 30,
+    fontSize:17
+    
+  },contenedor:{
+  top:10,
+    flexDirection:'row',
+  alignItems:'center',
+  columnGap:10,
+  alignSelf:'center'
+  },botonBuscar:{
+    top:40,
     backgroundColor: '#6f42c1',
-    width: 170,
+    width:170,
     borderRadius: 3,
-    alignSelf: 'center',
-    height: 30
-
+    alignSelf:'center',
+    height:30
+    
   }
 })
 export default Payin

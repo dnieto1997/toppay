@@ -1,8 +1,5 @@
 import React, { useState, useEffect} from 'react'
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet, View, Text, Image, Alert
 } from 'react-native';
 import globalStyles from './global/styles';
@@ -15,11 +12,12 @@ import { TextInput, Button } from 'react-native-paper'
 const Login = ({ navigation }) => {
   const [usuario, guardarUsuario] = useState('')
   const [password, guardarPassword] = useState('')
+  const [loading, setLoading] = useState(false);
  
 
 
   useEffect(() => {
-
+    setLoading(true);
     consumirApi()
 
   },[])
@@ -46,6 +44,7 @@ const Login = ({ navigation }) => {
 
       const resJson = await res.json();
       const token =resJson.token
+      setLoading(false);
      
       const res2 = await fetch(
         'http://129.80.238.214:3000/api/menu',
@@ -61,6 +60,7 @@ const Login = ({ navigation }) => {
       const {tipo} = await res2.json();
      console.log(tipo)
      console.log(resJson)
+     
      
 
 
@@ -142,7 +142,7 @@ const Login = ({ navigation }) => {
           secureTextEntry={true}
 
         />
-        <Button onPress={() => consumirApi()} style={styles.boton}><Text style={styles.btnText} >Iniciar sesion</Text></Button>
+        <Button onPress={() => consumirApi()} style={styles.boton}><Text style={styles.btnText} disabled={loading}>Iniciar sesion</Text></Button>
 
       </View>
 

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
 import { PieChart } from 'react-native-chart-kit';
-import { View, ScrollView, StyleSheet, Alert,Button} from 'react-native';
+import { Dimensions,View, ScrollView, StyleSheet, Alert,Button} from 'react-native';
 import globalStyles from '../global/styles';
 import { Text} from 'react-native-paper';
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from '@react-native-picker/picker';
-
 
 
 
@@ -21,6 +20,7 @@ const Graficos = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isDatePickerVisible2, setDatePickerVisibility2] = useState(false);
   const [status, setStatus] = useState('')
+  const [loading, setLoading] = useState(false);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -55,12 +55,12 @@ const Graficos = () => {
 
 
   useEffect(() => {
-
+    setLoading(true);
      Validacion()
     
 
 
-  }, [])
+  })
 
 
   const Validacion = () => {
@@ -106,7 +106,6 @@ const Graficos = () => {
         });
 
         const resJson = await res.json();
-
         resJson.forEach(function (dato) {
 
           const generarColor = () => "#000000".replace(/0/g, () => (~~(Math.random() * 16)).toString(16))
@@ -121,7 +120,7 @@ const Graficos = () => {
         });
 
 
-
+        setLoading(false);
         setResultado(resJson)
 
 
@@ -209,12 +208,12 @@ const Graficos = () => {
       </View>
       
       <View style={{top:20,alignSelf:'center'}}>
-      <Button onPress={Validacion} title="Buscar" color='#6f42c1' ></Button>
+      <Button onPress={()=>Validacion()} title="Buscar" color='#6f42c1' disabled={loading}></Button>
       </View>
       <View  >
         <PieChart
           data={resultado}
-          width={390}
+          width={Dimensions.get('window').width - 14}
           height={233}
           chartConfig={{
             backgroundColor: '#1cc910',
