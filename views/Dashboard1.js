@@ -15,7 +15,7 @@ import {
 
 import globalStyles from './global/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Pais from './src/Pais';
+
 
 
 
@@ -99,7 +99,8 @@ const Dashboard1 = () => {
       
             const {pais} = await res3.json();
           SetPais(pais)
-          console.log(pais)
+          
+          
            
      
       } catch (error) {
@@ -242,7 +243,7 @@ const Dashboard1 = () => {
      
     };
 
-console.log(todaystransactionout)
+
  
   return (
 

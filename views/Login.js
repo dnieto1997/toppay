@@ -12,12 +12,12 @@ import { TextInput, Button } from 'react-native-paper'
 const Login = ({ navigation }) => {
   const [usuario, guardarUsuario] = useState('')
   const [password, guardarPassword] = useState('')
-  const [loading, setLoading] = useState(false);
+  
  
 
 
   useEffect(() => {
-    setLoading(true);
+   
     consumirApi()
 
   },[])
@@ -44,7 +44,7 @@ const Login = ({ navigation }) => {
 
       const resJson = await res.json();
       const token =resJson.token
-      setLoading(false);
+      
      
       const res2 = await fetch(
         'http://129.80.238.214:3000/api/menu',
@@ -57,14 +57,14 @@ const Login = ({ navigation }) => {
       );
 
 
-      const {tipo} = await res2.json();
+     const {tipo,status} = await res2.json();
      console.log(tipo)
      console.log(resJson)
      
      
 
 
-      if (resJson.status === 1&&tipo==="MA") {
+      if (status === 1 && tipo==="MA") {
 
         await AsyncStorage.setItem('token', token)
         await AsyncStorage.setItem('user', usuario)
@@ -75,10 +75,10 @@ const Login = ({ navigation }) => {
        
         navigation.navigate('Dashboard')
         
-      } else if (resJson.status === 0) {
+      } else if (status === 0) {
         mostrarAlerta()
 
-      }else if(resJson.status === 1&&tipo==="TE"){
+      }else if(status === 1 && tipo==="TE"){
         await AsyncStorage.setItem('token', token)
         await AsyncStorage.setItem('user', usuario)
         await AsyncStorage.setItem('password', password)
@@ -142,7 +142,7 @@ const Login = ({ navigation }) => {
           secureTextEntry={true}
 
         />
-        <Button onPress={() => consumirApi()} style={styles.boton}><Text style={styles.btnText} disabled={loading}>Iniciar sesion</Text></Button>
+        <Button onPress={() => consumirApi()} style={styles.boton}><Text style={styles.btnText} >Iniciar sesion</Text></Button>
 
       </View>
 

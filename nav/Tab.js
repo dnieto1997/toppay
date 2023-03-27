@@ -51,9 +51,9 @@ const Tab = ({navigation}) => {
  return (
     <DrawerContentScrollView style={styles.contenedor2} >
 
-
- <Text style={styles.texto1}>Menu</Text>
- 
+<View style={{backgroundColor:'white'}}>
+ <Image source={require('../assets/img/logo.png')} style={styles.imagen} />
+ </View>
  <View style={styles.contenedor} >
  
  
@@ -97,7 +97,7 @@ const styles =StyleSheet.create({
     borderRadius:5,
     padding:5,
    justifyContent: 'space-between',
-   backgroundColor: '#4e2d87',
+  
    paddingVertical:20
     
    
@@ -140,11 +140,10 @@ borderTopEndRadius:4
 
  
 
-},imagen:{
-  width:20,
-  height:20,
-  
+},imagen: {
+  width: 110,
+  height: 110,
+  alignSelf: 'center'
 }
-
 })
 export default Tab

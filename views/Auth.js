@@ -15,9 +15,39 @@ const Auth = ({navigation}) =>{
     const [usuario, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [tokenapi, setTokenapi] = useState('');
+    const [tipo,settipo]=useState('')
    
    
-   
+    useEffect(() => {
+      consumirApi()
+
+
+    });
+
+
+    useEffect(()=>{
+      const consumirPai =async()=>{
+
+        try {
+          const res2 = await fetch(
+            'http://129.80.238.214:3000/api/menu',
+            {
+              method: 'GET',
+              headers: {
+                'x-token': `${tokenstorage}`,
+              }
+            },
+          );
+    
+    
+         const {tipo} = await res2.json();
+        settipo(tipo)
+
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    })
    
     useEffect(()=>{
         const obtenerToken = async () =>{
@@ -29,6 +59,9 @@ const Auth = ({navigation}) =>{
           setToken(tokenStorage)
           setUser(userStorage)
           setPassword(passwordStorage)
+          console.log("usuario del storage",userStorage)
+          console.log("password del storage",passwordStorage)
+          
         
         } catch (error) {
           console.log(error)
@@ -43,9 +76,7 @@ const Auth = ({navigation}) =>{
         
         })
 
-        useEffect(() => {
-            consumirApi()
-          },[tokenstorage]);
+      
 
         const  consumirApi = async () => {
          
@@ -62,12 +93,16 @@ const Auth = ({navigation}) =>{
             }),
           });
                 const resJson = await res.json();
+                console.log("esto es algo",resJson)
+                 
                 setTokenapi(resJson.token)
+                
               } catch (err) {
                 console.log(err);
               }  
 
-           
+              console.log("la api",tokenapi)
+              console.log("storage",tokenstorage)
               if(tokenapi!=tokenstorage){
          
                 Alert.alert(
@@ -83,12 +118,12 @@ const Auth = ({navigation}) =>{
                    
                 )
           
-             console.log('algo')
-            
-                 
-               }else {
+         
+               }else if(tokenapi===tokenstorage && tipo==='MA') {
                 navigation.navigate('Dashboard')
                  
+               }else if(tokenapi===tokenstorage && tipo==='TE'){
+                navigation.navigate('DashboardAliado')
                }
            
            
@@ -98,8 +133,8 @@ const Auth = ({navigation}) =>{
 
 
 
-            console.log(tokenapi)
-            console.log(tokenstorage)
+            console.log('token del api',tokenapi)
+            console.log('tokrn del stograge',tokenstorage)
         
     return(
        <></>

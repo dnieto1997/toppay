@@ -45,8 +45,8 @@ const Dashboard = () => {
         <Drawer.Navigator drawerContent={(props)=> <Tab{...props}/> }   >
         <Drawer.Screen name="Dashboard" component={Dashboard1} />
         
-          <Drawer.Screen name="Payin" component={Payin}  />
-          <Drawer.Screen name="Payout" component={Graficos}  />
+          <Drawer.Screen  name="Payin" component={Payin} options={{title:'Pay In', headerTitleAlign:'center',headerTintColor:'white',headerStyle:{backgroundColor:'#4e2d87'}}} />
+          <Drawer.Screen name="Payout" component={Graficos} options={{title:'Pay Out', headerTitleAlign:'center',headerTintColor:'white',headerStyle:{backgroundColor:'#4e2d87'}}} />
           <Drawer.Screen name="Utilidades" component={Utilidades}  />
           <Drawer.Screen name="Login" component={Login}  options ={()=>({
        
