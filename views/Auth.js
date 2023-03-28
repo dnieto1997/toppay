@@ -47,6 +47,7 @@ const Auth = ({navigation}) =>{
           console.log(error)
         }
       }
+      consumirPai()
     })
    
     useEffect(()=>{
@@ -104,8 +105,8 @@ const Auth = ({navigation}) =>{
               console.log("la api",tokenapi)
               console.log("storage",tokenstorage)
               if(tokenapi!=tokenstorage){
-         
-                Alert.alert(
+                navigation.navigate('Login')
+              /*   Alert.alert(
                   'Alerta',
                   'Token Vencido',
                   [
@@ -117,7 +118,7 @@ const Auth = ({navigation}) =>{
                  ]
                    
                 )
-          
+           */
          
                }else if(tokenapi===tokenstorage && tipo==='MA') {
                 navigation.navigate('Dashboard')

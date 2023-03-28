@@ -7,7 +7,7 @@ import { Text } from 'react-native-paper';
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from '@react-native-picker/picker';
-
+import {formatearCantidad,formatearCantidad2} from '../helpers/Index';
 
 
 
