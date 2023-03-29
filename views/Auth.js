@@ -22,7 +22,7 @@ const Auth = ({navigation}) =>{
       consumirApi()
 
 
-    });
+    },[tokenstorage]);
 
 
     useEffect(()=>{
@@ -75,7 +75,7 @@ const Auth = ({navigation}) =>{
 
       
         
-        })
+        },[])
 
       
 
@@ -94,7 +94,7 @@ const Auth = ({navigation}) =>{
             }),
           });
                 const resJson = await res.json();
-                console.log("esto es algo",resJson)
+                
                  
                 setTokenapi(resJson.token)
                 

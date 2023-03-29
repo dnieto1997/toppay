@@ -14,7 +14,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-
 const TabAliado = ({navigation}) => {
  
   const CerrarSesion = async() =>{
@@ -60,7 +59,7 @@ const TabAliado = ({navigation}) => {
   <Button title='Dashboard'  onPress={()=>navigation.navigate('Dashboard') } style={styles.boton} icon={require('../assets/img/dashboard.png')} labelStyle={{ color: '#fff' }}> <Text style={styles.texto2} mode="outlined"> Dashboard</Text> </Button>
   <Button title='Payout' onPress={()=>navigation.navigate('Payout')} style={styles.boton} icon={require('../assets/img/payout.png')} labelStyle={{ color: '#fff' }}><Text style={styles.texto2} > Pay out</Text></Button>
   <Button title='Payin' onPress={()=>navigation.navigate('Payin')} style={styles.boton} icon={require('../assets/img/payin.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Pay in</Text></Button>
-  
+  <Button title='Balances' onPress={()=>navigation.navigate('Balances')} style={styles.boton} icon={require('../assets/img/balance.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Balances</Text></Button>
   </View>   
   
 

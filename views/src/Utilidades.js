@@ -20,6 +20,7 @@ import { formatearCantidad } from '../../helpers/Index';
 
 
 
+
 const Utilidades = () => {
 
   const [fechainicio, setfechainicio] = useState(new Date())
@@ -69,26 +70,23 @@ const Utilidades = () => {
 
     setfechafin(date)
     hideDatePicker2();
-    falso()
+    setConsultaRealizada(false)
 
 
   };
 
 
-  const falso = () => {
-    setConsultaRealizada(false)
-  }
+
 
   const validacion = () => {
     if (fechaiformateada > fechafformateada) {
       mostrarAlerta()
-
-
+      
     } else {
       buscarFecha()
-      return
+     
     }
-
+    
   }
   useEffect(() => {
     const obtenerToken = async () => {
@@ -115,7 +113,7 @@ const Utilidades = () => {
     Pais()
    
 
-  })
+  },[])
 
 
 
@@ -202,8 +200,6 @@ const Utilidades = () => {
 
 
 
-
-
   const buscarFecha = async () => {
 
 
@@ -226,12 +222,13 @@ const Utilidades = () => {
         body: JSON.stringify({
           fechainicio: `${FechaInicioFormat}`,
           fechafin: `${FechaFinFormat}`,
-          pais: `${pais}`
+          pais: `${pais}`,
+          
         }),
       });
 
       const resJson = await res.json();
-    
+    console.log(resJson)
 
       setResultado(resJson)
       setConsultaRealizada(true);
@@ -257,6 +254,14 @@ const Utilidades = () => {
 
   }
 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   const renderItem = ({ item }) => (
 
     <View style={styles.row}>
@@ -357,10 +362,10 @@ const Utilidades = () => {
         />
 
       </View>
-      <TouchableOpacity onPress={validacion} title="Buscar" style={styles.botonBuscar} ><Text style={styles.texto}>Buscar</Text></TouchableOpacity>
+      <TouchableOpacity onPress={()=>validacion()} title="Buscar" style={styles.botonBuscar} ><Text style={styles.texto}>Buscar</Text></TouchableOpacity>
       
-      <View>
-      <ScrollView horizontal={true} >
+      
+      <ScrollView horizontal={true}  >
         <View style={styles.container}>
 
           <View style={styles.header}>
@@ -385,7 +390,7 @@ const Utilidades = () => {
       </ScrollView>
      
    
-      </View>
+      
      
     
 
@@ -452,7 +457,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#fff",
-    top: 50
+    top: 40
   },
   header: {
     flexDirection: 'row',
