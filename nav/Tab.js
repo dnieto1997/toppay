@@ -61,7 +61,7 @@ const Tab = ({navigation}) => {
   <Button title='Payout' onPress={()=>navigation.navigate('Payout')} style={styles.boton} icon={require('../assets/img/payout.png')} labelStyle={{ color: '#fff' }}><Text style={styles.texto2} > Pay out</Text></Button>
   <Button title='Payin' onPress={()=>navigation.navigate('Payin')} style={styles.boton} icon={require('../assets/img/payin.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Pay in</Text></Button>
   <Button title='Utilidades' onPress={()=>navigation.navigate('Utilidades')} style={styles.boton} icon={require('../assets/img/utilidades.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Utilidades</Text></Button>
-  
+  <Button title='Cerrar Sesion' onPress={()=>CerrarSesion()} style={styles.boton} icon={require('../assets/img/cerrar.png')} labelStyle={{ color: 'red' }} ><Text style={styles.texto2}> Cerrar Sesion</Text></Button>
   </View>   
   
 

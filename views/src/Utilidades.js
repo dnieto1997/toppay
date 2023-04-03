@@ -78,16 +78,7 @@ const Utilidades = () => {
 
 
 
-  const validacion = () => {
-    if (fechaiformateada > fechafformateada) {
-      mostrarAlerta()
-      
-    } else {
-      buscarFecha()
-     
-    }
-    
-  }
+
   useEffect(() => {
     const obtenerToken = async () => {
       try {
@@ -113,39 +104,12 @@ const Utilidades = () => {
     Pais()
    
 
-  },[])
+  })
 
 
 
 
-  const buscarMerchant = async () => {
-
-    try {
-      const res = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/buscaraliado', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user: `${user}`,
-
-        }),
-      });
-
-
-      const resJson = await res.json();
-      setAliado(resJson[0].merchant)
-
-
-
-
-    } catch (error) {
-      console.log(error)
-    }
-
-  }
-
+ 
   const Pais = async () => {
     try {
       const res3 = await fetch(
@@ -180,18 +144,23 @@ const Utilidades = () => {
 
 
 
-
-
+  const validacion =() =>{
+    if(fechaiformateada>fechafformateada){
+      mostrarAlerta()
+      
+      
+    }else{
+      buscarFecha()
+      return
+    }
+    
+  }
 
   useEffect(() => {
-
-    if (!consultaRealizada) {
-      validacion()
-    }
+validacion()
 
 
-
-  }, [consultaRealizada])
+  },[consultaRealizada])
 
 
 
@@ -362,7 +331,15 @@ const Utilidades = () => {
         />
 
       </View>
-      <TouchableOpacity onPress={()=>validacion()} title="Buscar" style={styles.botonBuscar} ><Text style={styles.texto}>Buscar</Text></TouchableOpacity>
+      <TouchableOpacity onPress={()=>validacion()} title="Buscar" style={styles.botonBuscar} disabled={consultaRealizada} >
+
+      <View style={{flexDirection:'row'}}>
+          
+          <Image source={require('../../assets/img/buscar.png')} style={[styles.imagen,{left:10}]}/><Text style={styles.texto5}>Buscar</Text>
+            
+            </View>
+
+      </TouchableOpacity>
       
       
       <ScrollView horizontal={true}  >
@@ -382,7 +359,7 @@ const Utilidades = () => {
           <FlatList
             data={resultado}
             renderItem={renderItem}
-            keyExtractor={(item, index) => index.toString()}
+          
            
           />
 
@@ -410,11 +387,12 @@ const styles = StyleSheet.create({
   boton: {
     backgroundColor: '#6f42c1',
     paddingLeft: 10,
-    width: 170,
+    width: 140,
     borderRadius: 3,
-    alignItems: 'center',
-    top: 20
-
+    top: 10,
+    height:25,
+    margin:10
+   
   },
   texto: {
     textAlign: 'center',
@@ -430,12 +408,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
 
   }, botonBuscar: {
-    top: 30,
+    top: 20,
     backgroundColor: '#6f42c1',
-    width: 170,
+    width: 130,
     borderRadius: 3,
-    height: 30,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    height: 25
 
 
   }, imagen: {
@@ -482,7 +460,17 @@ const styles = StyleSheet.create({
     borderRightColor: '#ddd',
     width: 150,
     height: 40
-  },
+  },texto5:{
+    
+    textAlign:'left',
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontSize: 14,
+    fontWeight:'bold',
+    left:15
+    
+
+  }
 
 
 

@@ -44,7 +44,7 @@ const Login = ({ navigation }) => {
 
       const resJson = await res.json();
       const token =resJson.token
-      
+      console.log(resJson)
      
       const res2 = await fetch(
         'http://129.80.238.214:3000/api/menu',
@@ -59,36 +59,33 @@ const Login = ({ navigation }) => {
 
      const {tipo,status} = await res2.json();
      console.log(tipo)
-     console.log(resJson)
      
-     
+   
 
+if(status==0){
+mostrarAlerta()
+return
+}
 
-      if (status === 1 && tipo==="MA") {
+     else if (status === 1 && tipo==="MA") {
 
         await AsyncStorage.setItem('token', token)
         await AsyncStorage.setItem('user', usuario)
         await AsyncStorage.setItem('password', password)
-        console.log(token)
-        console.log(usuario)
-        console.log(password)
        
         navigation.navigate('Dashboard')
         
-      } else if (status === 0) {
-        mostrarAlerta()
-
-      }else if(status === 1 && tipo==="TE"){
+      } else if(status === 1 && tipo==="TE"){
         await AsyncStorage.setItem('token', token)
         await AsyncStorage.setItem('user', usuario)
         await AsyncStorage.setItem('password', password)
-        console.log(token)
-        console.log(usuario)
-        console.log(password)
-       
+  
         navigation.navigate('DashboardAliado')
         return
+        
       }
+
+
 
 
 
@@ -126,10 +123,10 @@ const Login = ({ navigation }) => {
           label="Username"
           placeholder='Username'
           style={styles.input}
-          onChangeText={texto => guardarUsuario(texto)}
+          onChangeText={guardarUsuario}
           value={usuario}
 
-
+          //texto => guardarUsuario(texto)
         />
 
 
@@ -137,7 +134,7 @@ const Login = ({ navigation }) => {
           label="Password"
           placeholder='Password'
           style={styles.input}
-          onChangeText={texto => guardarPassword(texto)}
+          onChangeText={guardarPassword}
           value={password}
           secureTextEntry={true}
 

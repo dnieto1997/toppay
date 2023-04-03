@@ -22,16 +22,17 @@ const App = () => {
    
    
     <NavigationContainer>
-    <Stack.Navigator >
+    <Stack.Navigator>
     
     
-    <Stack.Screen name='Auth' component={Auth}   options ={(navigation,props)=>({
+  <Stack.Screen name='Auth' component={Login} 
+   options ={(navigation)=>({
        
-       headerShown: false
-   
-   
-        })}/>
-    
+    headerTitleAlign:'center', headerShown: false
+ 
+ 
+      })}/>
+     
     
     <Stack.Screen name='Login' component={Login} 
    options ={(navigation)=>({

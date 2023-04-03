@@ -126,7 +126,7 @@ useEffect(()=>{
     
           const {pais} = await res2.json();
           SetPais(pais)
-          console.log(pais)
+          console.log("pais",pais)
          
 
     } catch (error) {

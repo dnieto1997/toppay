@@ -10,6 +10,8 @@ import { View,Text,StyleSheet,Image,Alert} from 'react-native';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import RNRestart from 'react-native-restart';
+
 
 
 
@@ -26,15 +28,17 @@ const TabAliado = ({navigation}) => {
       'LOGOUT',
       'Quieres Cerrar Sesion?',
      
-     
       [
      {text:'No',style:'cancel'},
      {text:'Si',onPress: async() =>{
       AsyncStorage.clear()
       .then(
           res => {
-              navigation.navigate('Login')
-              AsyncStorage.clear()
+        navigation.navigate('Login')
+            
+            
+            
+            
           }
       )
 
@@ -59,7 +63,10 @@ const TabAliado = ({navigation}) => {
   <Button title='Dashboard'  onPress={()=>navigation.navigate('Dashboard') } style={styles.boton} icon={require('../assets/img/dashboard.png')} labelStyle={{ color: '#fff' }}> <Text style={styles.texto2} mode="outlined"> Dashboard</Text> </Button>
   <Button title='Payout' onPress={()=>navigation.navigate('Payout')} style={styles.boton} icon={require('../assets/img/payout.png')} labelStyle={{ color: '#fff' }}><Text style={styles.texto2} > Pay out</Text></Button>
   <Button title='Payin' onPress={()=>navigation.navigate('Payin')} style={styles.boton} icon={require('../assets/img/payin.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Pay in</Text></Button>
-  <Button title='Balances' onPress={()=>navigation.navigate('Balances')} style={styles.boton} icon={require('../assets/img/balance.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Balances</Text></Button>
+  <Button title='Balances' onPress={()=>navigation.navigate('Balances')} style={styles.boton}    labelStyle={{ color: '#fff' }}  icon={require('../assets/img/balance.webp')} ><Text style={styles.texto2}> Balances</Text></Button>
+  
+  
+  <Button title='Cerrar Sesion' onPress={()=>CerrarSesion()} style={styles.boton} icon={require('../assets/img/cerrar.png')} labelStyle={{ color: 'red' }} ><Text style={styles.texto2}> Cerrar Sesion</Text></Button>
   </View>   
   
 
@@ -132,9 +139,9 @@ const styles =StyleSheet.create({
  
 
 marginRight:30,
-backgroundColor:'red',
 borderRadius:4,
 borderTopEndRadius:4
+
 
  
 

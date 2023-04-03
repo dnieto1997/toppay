@@ -133,7 +133,7 @@ const validacion =() =>{
 
         const generarColor = () => "#000000".replace(/0/g, () => (~~(Math.random() * 16)).toString(16))
         const legendFontColor = '#7F7F7F'
-        const legendFontSize = 15
+        const legendFontSize = 14
         dato.color = generarColor(color)
         dato.legendFontColor = legendFontColor
         dato.legendFontSize = legendFontSize,
@@ -233,21 +233,31 @@ const validacion =() =>{
       </View>
 
       <View style={{ top: 20, alignSelf: 'center' }}>
-        <TouchableOpacity  onPress={() => validacion()} style={styles.botonBuscar} disabled={consultaRealizada}><Text style={styles.texto}>Buscar</Text></TouchableOpacity>
+        <TouchableOpacity  onPress={() => validacion()} style={styles.botonBuscar} disabled={consultaRealizada}>   
+        <View style={{flexDirection:'row'}}>
+          
+        <Image source={require('../../assets/img/buscar.png')} style={[styles.imagen,{left:10}]}/><Text style={styles.texto5}>Buscar</Text>
+          
+          </View>
+        
+        
+        
+        </TouchableOpacity>
       </View>
       <View  >
         <PieChart
-          data={resultado}
-          width={Dimensions.get('window').width - 10}
-          height={233}
-          chartConfig={{
-            backgroundColor: '#1cc910',
-            backgroundGradientFrom: '#eff3ff',
-            backgroundGradientTo: '#efefef',
-            decimalPlaces: 3,
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            style: {
-              borderRadius: 16,
+        data={resultado}
+        width={Dimensions.get('window').width -5 }
+        height={220}
+        chartConfig={{
+          backgroundColor: '#1cc910',
+          backgroundGradientFrom: '#eff3ff',
+          backgroundGradientTo: '#efefef',
+          decimalPlaces: 2,
+          
+          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+          style: {
+            borderRadius: 16,
 
 
             },
@@ -274,11 +284,11 @@ const styles = StyleSheet.create({
   boton: {
     backgroundColor: '#6f42c1',
     paddingLeft: 10,
-    width: 175,
+    width: 140,
     borderRadius: 3,
     alignItems: 'center',
     top: 10,
-   
+    height:25
 
   },
   texto: {
@@ -298,10 +308,10 @@ const styles = StyleSheet.create({
   }, botonBuscar: {
     top: 20,
     backgroundColor: '#6f42c1',
-    width: 170,
+    width: 130,
     borderRadius: 3,
     alignSelf: 'center',
-    height: 30
+    height: 25
 
   },imagen:{
     width:20,
@@ -320,6 +330,16 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 14,
     fontWeight:'bold'
+    
+
+  },texto5:{
+    
+    textAlign:'left',
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontSize: 14,
+    fontWeight:'bold',
+    left:15
     
 
   }
