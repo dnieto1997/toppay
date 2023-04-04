@@ -26,7 +26,8 @@ const PayinAliado = () => {
   const [user, setUser] = useState('')
   const [payouts, setpayouts] = useState('')
   const [payoutd, setpayoutd] = useState('')
- 
+  const[pais,SetPais]=useState('')
+  const [currency, Setcurrency] = useState('')
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -170,10 +171,46 @@ const PayinAliado = () => {
 
   }
 
+  useEffect(() => {
+    const Pais = async () => {
+        try {
+            const res3 = await fetch(
+                'http://129.80.238.214:3000/api/menu',
+                {
+                    method: 'GET',
+                    headers: {
+                        'x-token': `${token}`,
+                    }
+                },
+            );
+
+
+            const { pais } = await res3.json();
+            SetPais(pais)
+            console.log("pais: ",pais)
+
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
+    Pais()
+
+})
+
+
 
 
   const buscarFecha = async () => {
 
+    if (pais === 1) {
+      Setcurrency("COP")
+  } else if (pais === 2) {
+      Setcurrency("SOL")
+  }
 
 
     const FechaInicioFormat = fechainicio.getFullYear() + "-" + (fechainicio.getMonth() + 1) + "-" + fechainicio.getDate()
@@ -191,7 +228,8 @@ const PayinAliado = () => {
         body: JSON.stringify({
           fechainicio: `${FechaInicioFormat}`,
           fechafin: `${FechaFinFormat}`,
-          aliado: `${aliado}`
+          aliado: `${aliado}`,
+          currency: `${currency}`
 
         }),
       });
@@ -211,7 +249,8 @@ const PayinAliado = () => {
         body: JSON.stringify({
           fechainicio: `${FechaInicioFormat}`,
           fechafin: `${FechaFinFormat}`,
-          aliado: `${aliado}`
+          aliado: `${aliado}`,
+          currency: `${currency}`
 
         }),
       });

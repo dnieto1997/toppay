@@ -179,7 +179,7 @@ const validacion =() =>{
 
 
   return (
-
+<View style={{flex:1,backgroundColor:'#fff'}}>
     <ScrollView>
 
 
@@ -276,6 +276,7 @@ const validacion =() =>{
 
 
     </ScrollView>
+    </View>
   )
 }
 

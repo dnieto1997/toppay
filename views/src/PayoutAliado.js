@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 
-import { ActivityIndicator,Dimensions, SafeAreaView, View, ScrollView, StyleSheet, Alert, Button } from 'react-native';
+import { Image,TouchableOpacity,ActivityIndicator,Dimensions, SafeAreaView, View, ScrollView, StyleSheet, Alert, Button } from 'react-native';
 import globalStyles from '../global/styles';
 import { Text } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,8 +26,9 @@ const PayoutAliado = () => {
   const [user, setUser] = useState('')
   const [payouts, setpayouts] = useState('')
   const [payoutd, setpayoutd] = useState('')
- 
+  const[pais,SetPais]=useState('')
   const [loading, setLoading] = useState(true);
+  const [currency, Setcurrency] = useState('')
 
 
   const showDatePicker = () => {
@@ -92,9 +93,10 @@ const PayoutAliado = () => {
     Validacion()
 
 
-
-
   }, [])
+
+
+
 
 
   const Validacion = () => {
@@ -113,6 +115,9 @@ const PayoutAliado = () => {
     }
     return
   }
+
+
+
 
 
 
@@ -139,6 +144,40 @@ const PayoutAliado = () => {
     }
 
   }
+
+
+  useEffect(() => {
+    const Pais = async () => {
+        try {
+            const res3 = await fetch(
+                'http://129.80.238.214:3000/api/menu',
+                {
+                    method: 'GET',
+                    headers: {
+                        'x-token': `${token}`,
+                    }
+                },
+            );
+
+
+            const { pais } = await res3.json();
+            SetPais(pais)
+            console.log("pais: ",pais)
+
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
+    Pais()
+
+})
+
+
+
 
 
 
@@ -173,6 +212,11 @@ const PayoutAliado = () => {
 
 
   const buscarFecha = async () => {
+    if (pais === 1) {
+      Setcurrency("COP")
+  } else if (pais === 2) {
+      Setcurrency("SOL")
+  }
 
 
 
@@ -191,7 +235,8 @@ const PayoutAliado = () => {
         body: JSON.stringify({
           fechainicio: `${FechaInicioFormat}`,
           fechafin: `${FechaFinFormat}`,
-          aliado: `${aliado}`
+          aliado: `${aliado}`,
+          currency: `${currency}`
 
         }),
       });
@@ -211,7 +256,8 @@ const PayoutAliado = () => {
         body: JSON.stringify({
           fechainicio: `${FechaInicioFormat}`,
           fechafin: `${FechaFinFormat}`,
-          aliado: `${aliado}`
+          aliado: `${aliado}`,
+          currency: `${currency}`
 
         }),
       });
@@ -246,7 +292,7 @@ const PayoutAliado = () => {
   const datos = [payouts, payoutd]
 
   console.log(datos)
-  console.log(user)
+
 
 
 
@@ -260,39 +306,54 @@ const PayoutAliado = () => {
              <View style={styles.contenedor}>
 
 
-<Button title="Fecha Inicial" onPress={showDatePicker} style={styles.boton} color='#6f42c1' >
-  <Text style={styles.texto}>Fecha Inicial</Text>
-</Button>
-<DateTimePickerModal
-  isVisible={isDatePickerVisible}
-  mode="date"
-  onConfirm={handleConfirm}
-  onCancel={hideDatePicker}
-  format='yyyy-mm-dd'
-  date={fechainicio}
-/>
+             <TouchableOpacity onPress={showDatePicker} style={styles.boton} color='#6f42c1'  >
+         
+         <View style={{flexDirection:'row'}}>
+          <Image source={require('../global/Img/fecha.png')} style={styles.imagen}/>
+          <Text style={styles.texto2}> Fecha inicial</Text>
+          </View>
+        </TouchableOpacity>
+      
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          format='yyyy-mm-dd'
+          date={fechainicio}
+        />
 
 
-<Button title="Fecha Final" onPress={showDatePicker2} style={styles.boton} color='#6f42c1'><Text style={styles.texto} >Fecha Fin</Text></Button>
-<DateTimePickerModal
-  date={fechafin}
-  isVisible={isDatePickerVisible2}
-  mode="date"
-  onConfirm={handleConfirm2}
-  onCancel={hideDatePicker2}
-  format='yyyy-mm-dd'
+        <TouchableOpacity title="Fecha Final" onPress={showDatePicker2} style={styles.boton} color='#6f42c1'><View style={{flexDirection:'row'}}>
+          <Image source={require('../global/Img/fecha.png')} style={styles.imagen}/>
+          <Text style={styles.texto2}> Fecha Final</Text>
+          </View></TouchableOpacity>
+        <DateTimePickerModal
+          date={fechafin}
+          isVisible={isDatePickerVisible2}
+          mode="date"
+          onConfirm={handleConfirm2}
+          onCancel={hideDatePicker2}
+          format='yyyy-mm-dd'
 
-/>
-
+        />
 
 
 </View>
 
 <View style={{ top: 20, alignSelf: 'center' }}>
-<Button onPress={()=>Validacion()} title="Buscar" color='#6f42c1' ></Button>
-</View>
-<View >
-<Text style={styles.header}>Pay Out </Text>
+        <TouchableOpacity  onPress={() => Validacion()} style={styles.botonBuscar} >  
+        <View style={{flexDirection:'row'}}>
+          
+        <Image source={require('../../assets/img/buscar.png')} style={[styles.imagen,{left:10}]}/><Text style={styles.texto5}>Buscar</Text>
+          
+          </View>
+          
+          
+          </TouchableOpacity>
+      </View>
+<View  style={{top:40,bottom:10}}>
+
 <StackedBarChart
   data={{
     labels: ['Pay out Success', 'Pay out Declined'],
@@ -327,7 +388,8 @@ useShadowColorFromDataset: false // optional
   style={{
     marginVertical: 8,
     borderRadius: 8,
-    marginLeft:8
+    marginLeft:8,
+    margin:10
   }}
 />
 
@@ -341,17 +403,20 @@ const styles = StyleSheet.create({
   boton: {
     backgroundColor: '#6f42c1',
     paddingLeft: 10,
-    width: 170,
+    width: 140,
     borderRadius: 3,
     alignItems: 'center',
-    top: 20
+    top: 10,
+    height:25
 
   },
   texto: {
     textAlign: 'center',
     color: '#fff',
     textTransform: 'uppercase',
-    fontSize: 17
+    fontSize: 15,
+    fontWeight:'bold'
+    
 
   }, contenedor: {
     top: 10,
@@ -360,26 +425,42 @@ const styles = StyleSheet.create({
     columnGap: 10,
     alignSelf: 'center'
   }, botonBuscar: {
-    top: 40,
+    top: 20,
     backgroundColor: '#6f42c1',
-    width: 170,
+    width: 130,
     borderRadius: 3,
     alignSelf: 'center',
-    height: 30
+    height: 25
 
-  }, container: {
-    flex: 1,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    padding: 10,
-  },
-  header: {
-    textAlign: 'center',
-    fontSize: 18,
-    padding: 16,
-    marginTop: 16,
+  },imagen:{
+    width:20,
+    height:20,
+    alignSelf:'flex-start',
+    top:1
+    
+    
+ 
+   
+    
+  },texto2:{
+    
+    textAlign:'left',
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontSize: 14,
+    fontWeight:'bold'
+    
+
+  },texto5:{
+    
+    textAlign:'left',
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontSize: 14,
+    fontWeight:'bold',
+    left:15
+    
+
   }
 })
 export default PayoutAliado

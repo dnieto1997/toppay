@@ -25,10 +25,12 @@ const Dashboard1 = () => {
   const [refresh,setRefresh] =useState(false)
   const pullMe =()=>{
     setRefresh(true)
-  
+     settodaystransactionout('')
+     settodaymoneyout('')
     setTimeout(()=>{
   setRefresh(false)
   
+
     },10)
     }
     
@@ -67,6 +69,8 @@ const Dashboard1 = () => {
     })
   
     useEffect(() => {
+      
+   
       todayMoneyin();
       todaysTransactionin();
       todaysTransactionerrorin();
@@ -74,14 +78,10 @@ const Dashboard1 = () => {
       todaysTransactionout();
       
      
-   
-      
-      
      
     });
   
-
-
+ 
 
   
     const Pais =async()=>{
@@ -185,6 +185,7 @@ const Dashboard1 = () => {
     };
   
     const todayMoneyout = async () => {
+    
       try {
         const res = await fetch(
           'http://129.80.238.214:3000/api/dashboard/todaymoneyout',
@@ -200,17 +201,33 @@ const Dashboard1 = () => {
   
         const total = result[0].total;
        
-     
+      if(total===0){
+        settodaymoneyout('');
+
+      }else{
         settodaymoneyout(total);
+      }
+     
        
        
         
+
+
+
+
+
+
+
       } catch (err) {
         
       }
+      
+      
+      
     };
   
     const todaysTransactionout = async () => {
+    
       try {
         const res = await fetch(
           'http://129.80.238.214:3000/api/dashboard/todaystransactionout',
@@ -222,21 +239,26 @@ const Dashboard1 = () => {
           },
         );
   
+        
+        
+        
+        
         const {result} = await res.json();
   
-        const total = result[0].total;
-       
+        const total = result[0].total
           
-      
+        
+        if(total===0){
+          settodaystransactionout('');
+  
+        }else{
           settodaystransactionout(total)
+        }
+        
+        
+        
         
        
-       
-          
-        
-         
-
-
       } catch (err) {
         
       }
@@ -317,8 +339,13 @@ const Dashboard1 = () => {
             </Text>
 
             <Text style={styles.texto2}>
-             
-            {pais=="1"?formatearCantidad(todaymoneyout) : formatearCantidad2(todaymoneyout)}{' '}
+            
+           
+                
+             {pais=="1"?formatearCantidad(todaymoneyout) : formatearCantidad2(todaymoneyout) } 
+            
+            
+          
            
             </Text>
           </View>

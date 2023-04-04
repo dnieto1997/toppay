@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react'
+import React,{useState,useEffect}from 'react'
 
 
 
@@ -17,6 +17,67 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = ({navigation}) => {
  
+  const [token, setToken] = useState('');
+  const [tipo, setTipo] = useState('');
+    
+  useEffect(()=>{
+    const obtenerToken =async () =>{
+    try {
+      const tokenStorage =await AsyncStorage.getItem('token') 
+      setToken(tokenStorage)
+      
+    
+   
+    } catch (error) {
+      console.log(error)
+      
+    }
+    
+    }
+    obtenerToken()
+    
+    })
+  
+
+    useEffect(()=>{
+      TipoUser()
+    })
+    
+    
+    const TipoUser =async()=>{
+try {
+
+  const res2 = await fetch(
+    'http://129.80.238.214:3000/api/menu',
+    {
+      method: 'GET',
+      headers: {
+        'x-token': `${token}`,
+      }
+    },
+  );
+
+
+  const { tipo, status } = await res2.json();
+  setTipo(tipo)
+  
+} catch (error) {
+  
+}
+
+
+
+
+    }
+
+
+  
+  
+  
+  
+  
+  
+  
   const CerrarSesion = async() =>{
     
     
@@ -50,10 +111,42 @@ const Tab = ({navigation}) => {
 
  return (
     <DrawerContentScrollView style={styles.contenedor2} >
-
 <View style={{backgroundColor:'white'}}>
  <Image source={require('../assets/img/logo.png')} style={styles.imagen} />
  </View>
+
+{tipo==="MA"?
+<View style={styles.contenedor} >
+ 
+ 
+ <Button title='Dashboard'  onPress={()=>{navigation.navigate('Dashboard');  navigation.closeDrawer();}  } style={styles.boton} icon={require('../assets/img/dashboard.png')} labelStyle={{ color: '#fff' }}> <Text style={styles.texto2} mode="outlined"> Dashboard</Text> </Button>
+ <Button title='Payout' onPress={()=>navigation.navigate('Payout')} style={styles.boton} icon={require('../assets/img/payout.png')} labelStyle={{ color: '#fff' }}><Text style={styles.texto2} > Pay out</Text></Button>
+ <Button title='Payin' onPress={()=>navigation.navigate('Payin')} style={styles.boton} icon={require('../assets/img/payin.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Pay in</Text></Button>
+ <Button title='Utilidades' onPress={()=>navigation.navigate('Utilidades')} style={styles.boton} icon={require('../assets/img/utilidades.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Utilidades</Text></Button>
+ <Button title='Cerrar Sesion' onPress={()=>CerrarSesion()} style={styles.boton} icon={require('../assets/img/cerrar.png')} labelStyle={{ color: 'red' }} ><Text style={styles.texto2}> Cerrar Sesion</Text></Button>
+ </View>   
+ 
+ 
+ :  
+ <View style={styles.contenedor} >
+ 
+ 
+ <Button title='Dashboard'  onPress={()=>navigation.navigate('Dashboard') } style={styles.boton} icon={require('../assets/img/dashboard.png')} labelStyle={{ color: '#fff' }}> <Text style={styles.texto2} mode="outlined"> Dashboard</Text> </Button>
+ <Button title='Payout' onPress={()=>navigation.navigate('Payout1')} style={styles.boton} icon={require('../assets/img/payout.png')} labelStyle={{ color: '#fff' }}><Text style={styles.texto2} > Pay out</Text></Button>
+ <Button title='Payin' onPress={()=>navigation.navigate('Payin1')} style={styles.boton} icon={require('../assets/img/payin.png')} labelStyle={{ color: '#fff' }} ><Text style={styles.texto2}> Pay in</Text></Button>
+ <Button title='Balances' onPress={()=>navigation.navigate('Balances')} style={styles.boton}    labelStyle={{ color: '#fff' }}  icon={require('../assets/img/balance.webp')} ><Text style={styles.texto2}> Balances</Text></Button>
+ 
+ 
+ <Button title='Cerrar Sesion' onPress={()=>CerrarSesion()} style={styles.boton} icon={require('../assets/img/cerrar.png')} labelStyle={{ color: 'red' }} ><Text style={styles.texto2}> Cerrar Sesion</Text></Button>
+ </View>   
+ 
+ }
+
+
+
+
+
+{/* 
  <View style={styles.contenedor} >
  
  
@@ -64,7 +157,7 @@ const Tab = ({navigation}) => {
   <Button title='Cerrar Sesion' onPress={()=>CerrarSesion()} style={styles.boton} icon={require('../assets/img/cerrar.png')} labelStyle={{ color: 'red' }} ><Text style={styles.texto2}> Cerrar Sesion</Text></Button>
   </View>   
   
-
+ */}
   
 
   

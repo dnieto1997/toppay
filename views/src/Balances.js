@@ -10,7 +10,7 @@ import { Text } from 'react-native-paper';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { formatearCantidad } from '../../helpers/Index';
+import { formatearCantidad,formatearCantidad2 } from '../../helpers/Index';
 
 
 
@@ -338,38 +338,40 @@ console.log("resultado",resultado)
 
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>
+       
+       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={()=>Dispersiones()} />}  style={{ backgroundColor: 'transparent' }}>
+       <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <View style={{ backgroundColor: '#fff' }}>
                 <View style={styles.contenedor}>
 
                     <View style={{ flexDirection: 'column', right: 40 }}>
                         <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Total Pay-In</Text>
                         <Text style={[styles.texto3, { color: 'black', top: 9 }]}> Recaudo: </Text>
-                        <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{formatearCantidad(Math.round(payin))}</Text>
+                        <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais=="1"?formatearCantidad(Math.round(payin)) : formatearCantidad2(Math.round(payin))}</Text>
                         <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Consignacion: </Text>
-                        <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{formatearCantidad(Math.round(balancepayin))} </Text>
-                        <Text style={[styles.texto3, { color: 'green', top: 18 }]}> {formatearCantidad(Math.round(total1))} </Text>
+                        <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais=="1"?formatearCantidad(Math.round(balancepayin)) : formatearCantidad2(Math.round(balancepayin)) } </Text>
+                        <Text style={[styles.texto3, { color: 'green', top: 18 }]}> {pais=="1"?formatearCantidad(Math.round(total1)) : formatearCantidad2(Math.round(total1))} </Text>
                     </View>
                     <View style={{ flexDirection: 'column', left: 40 }}>
                         <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Total Pay-Out</Text>
                         <Text style={[styles.texto3, { color: 'black', top: 9 }]}> Prestamos: </Text>
-                        <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{formatearCantidad(Math.round(payout))}</Text>
+                        <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{pais=="1"?formatearCantidad(Math.round(payout)) : formatearCantidad2(Math.round(payout))}</Text>
                         <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Retiros: </Text>
-                        <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{formatearCantidad(Math.round(balancepayout))} </Text>
-                        <Text style={[styles.texto3, { color: 'red', top: 18 }]}> {formatearCantidad(Math.round(total2))} </Text>
+                        <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{ pais=="1"?formatearCantidad(Math.round(balancepayout)) : formatearCantidad2(Math.round(balancepayout))} </Text>
+                        <Text style={[styles.texto3, { color: 'red', top: 18 }]}> {pais=="1"?formatearCantidad(Math.round(total2)) : formatearCantidad2(Math.round(total2))} </Text>
                     </View>
 
                 </View>
 
                 <View style={{ alignSelf: 'center', top: 30 }}>
-                    <Text> {formatearCantidad(totalSum)}</Text>
+                    <Text> {pais=="1"?formatearCantidad(Math.round(totalSum)) : formatearCantidad2(Math.round(totalSum))}</Text>
                 </View>
 
             </View>
 
 
 
-            <ScrollView horizontal={true} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={()=>Dispersiones()} />}  style={{ backgroundColor: 'transparent' }}>
+            <ScrollView horizontal={true} >
        
 
 
@@ -404,7 +406,7 @@ console.log("resultado",resultado)
 </ScrollView>
         </View>
 
-
+        </ScrollView>
 
 
 

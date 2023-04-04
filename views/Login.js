@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   StyleSheet, View, Text, Image, Alert
 } from 'react-native';
@@ -12,23 +12,23 @@ import { TextInput, Button } from 'react-native-paper'
 const Login = ({ navigation }) => {
   const [usuario, guardarUsuario] = useState('')
   const [password, guardarPassword] = useState('')
-  
- 
+
+
 
 
   useEffect(() => {
-   
+
     consumirApi()
 
-  },[])
+  }, [])
 
 
   const consumirApi = async () => {
-    
+
 
     try {
 
-      
+
       const res = await fetch('http://129.80.238.214:3000/api/auth/login/', {
         method: 'POST',
         headers: {
@@ -43,9 +43,9 @@ const Login = ({ navigation }) => {
 
 
       const resJson = await res.json();
-      const token =resJson.token
+      const token = resJson.token
       console.log(resJson)
-     
+
       const res2 = await fetch(
         'http://129.80.238.214:3000/api/menu',
         {
@@ -57,34 +57,36 @@ const Login = ({ navigation }) => {
       );
 
 
-     const {tipo,status} = await res2.json();
-     console.log(tipo)
-     
-   
+      const { tipo, status } = await res2.json();
+      console.log(tipo)
 
-if(status==0){
-mostrarAlerta()
-return
-}
 
-     else if (status === 1 && tipo==="MA") {
-
-        await AsyncStorage.setItem('token', token)
-        await AsyncStorage.setItem('user', usuario)
-        await AsyncStorage.setItem('password', password)
-       
-        navigation.navigate('Dashboard')
-        
-      } else if(status === 1 && tipo==="TE"){
-        await AsyncStorage.setItem('token', token)
-        await AsyncStorage.setItem('user', usuario)
-        await AsyncStorage.setItem('password', password)
-  
-        navigation.navigate('DashboardAliado')
+/* 
+      if (status != 1) {
+        mostrarAlerta()
         return
-        
+      }
+ */
+     if (status === 1 && tipo === "MA") {
+
+        await AsyncStorage.setItem('token', token)
+        await AsyncStorage.setItem('user', usuario)
+        await AsyncStorage.setItem('password', password)
+
+        navigation.navigate('Dashboard')
+
+      } else if (status === 1 && tipo === "TE") {
+        await AsyncStorage.setItem('token', token)
+        await AsyncStorage.setItem('user', usuario)
+        await AsyncStorage.setItem('password', password)
+
+        navigation.navigate('Dashboard')
+      
+      }else if(resJson.msg=="Usuario/Password no son correctos"){
+        mostrarAlerta()
       }
 
+      return
 
 
 
@@ -114,36 +116,36 @@ return
 
   return (
 
-    
-      <View style={globalStyles.contenedor}>
 
-        <Image source={require('../assets/img/logo.png')} style={styles.imagen} />
+    <View style={globalStyles.contenedor}>
 
-        <TextInput
-          label="Username"
-          placeholder='Username'
-          style={styles.input}
-          onChangeText={guardarUsuario}
-          value={usuario}
+      <Image source={require('../assets/img/logo.png')} style={styles.imagen} />
 
-          //texto => guardarUsuario(texto)
-        />
+      <TextInput
+        label="Username"
+        placeholder='Username'
+        style={styles.input}
+        onChangeText={guardarUsuario}
+        value={usuario}
+
+      //texto => guardarUsuario(texto)
+      />
 
 
-        <TextInput
-          label="Password"
-          placeholder='Password'
-          style={styles.input}
-          onChangeText={guardarPassword}
-          value={password}
-          secureTextEntry={true}
+      <TextInput
+        label="Password"
+        placeholder='Password'
+        style={styles.input}
+        onChangeText={guardarPassword}
+        value={password}
+        secureTextEntry={true}
 
-        />
-        <Button onPress={() => consumirApi()} style={styles.boton}><Text style={styles.btnText} >Iniciar sesion</Text></Button>
+      />
+      <Button onPress={() => consumirApi()} style={styles.boton}><Text style={styles.btnText} >Iniciar sesion</Text></Button>
 
-      </View>
+    </View>
 
-   
+
 
   )
 }

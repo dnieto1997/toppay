@@ -10,7 +10,7 @@ import { View,Text,StyleSheet,Image,Alert} from 'react-native';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import RNRestart from 'react-native-restart';
+
 
 
 
@@ -22,6 +22,8 @@ const TabAliado = ({navigation}) => {
     
     
      
+
+    
         AsyncStorage.removeItem('user')
         AsyncStorage.removeItem('password')
     Alert.alert(

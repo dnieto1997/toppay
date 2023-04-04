@@ -341,8 +341,8 @@ validacion()
 
       </TouchableOpacity>
       
-      
-      <ScrollView horizontal={true}  >
+      <View>
+      <ScrollView horizontal={true} style={{marginLeft:5,marginRight:5,margin:20}} >
         <View style={styles.container}>
 
           <View style={styles.header}>
@@ -365,6 +365,7 @@ validacion()
 
         </View>
       </ScrollView>
+      </View>
      
    
       

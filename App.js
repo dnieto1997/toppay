@@ -22,10 +22,18 @@ const App = () => {
    
    
     <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='Login'>
     
     
-  <Stack.Screen name='Auth' component={Login} 
+    <Stack.Screen name='Dashboardaliado' component={DashboardAliado}   options ={(navigation,props)=>({
+       
+       headerShown: false
+   
+   
+        })}/>
+  
+
+  <Stack.Screen name='Auth' component={Auth} 
    options ={(navigation)=>({
        
     headerTitleAlign:'center', headerShown: false
@@ -51,12 +59,7 @@ const App = () => {
     
          })}/>
 
-<Stack.Screen name='DashboardAliado' component={DashboardAliado}   options ={(navigation,props)=>({
-       
-       headerShown: false
-   
-   
-        })}/>
+
 
 
 

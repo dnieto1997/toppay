@@ -9,7 +9,6 @@ import TabAliado from '../nav/TabAliado';
 import PayinAliado from './src/PayinAliado';
 import Balances from './src/Balances';
 import Login from './Login';
-import Auth from './Auth';
 
 
 
@@ -52,7 +51,7 @@ const DashboardAliado = () => {
 }
 
 
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({
 
   container:{
     backgroundColor:'red',

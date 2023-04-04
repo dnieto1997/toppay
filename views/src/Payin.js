@@ -185,7 +185,7 @@ const validacion =() =>{
 
       <View>
         <Picker onValueChange={(valor) => setStatus(valor)} selectedValue={status} style={{ textAlign: 'center' }}  >
-          <Picker.Item label='-Seleccione estado---' value="" />
+          <Picker.Item label='--- Seleccione Estado ---' value="" />
           <Picker.Item label='Success' value="1" />
           <Picker.Item label='Declined' value="3" />
 
