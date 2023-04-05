@@ -264,7 +264,8 @@ const PayoutAliado = () => {
 
       const resJson2 = await res3.json();
       setpayoutd(resJson2[0].cantidad)
-      setLoading(false);
+
+      setLoading(false)
       
 
 

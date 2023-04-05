@@ -87,6 +87,7 @@ try {
     Alert.alert(
       'LOGOUT',
       'Quieres Cerrar Sesion?',
+      
      
      
       [
@@ -104,6 +105,7 @@ try {
      
     
       ]
+      
       
     )
     

@@ -8,12 +8,8 @@ import { FlatList, Dimensions, View, ScrollView, StyleSheet, Alert, Button, Touc
 import { Text } from 'react-native-paper';
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-
-import { Table, Row, Rows } from 'react-native-table-component';
-
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { formatearCantidad } from '../../helpers/Index';
+
 
 
 
@@ -342,7 +338,7 @@ validacion()
       </TouchableOpacity>
       
       <View>
-      <ScrollView horizontal={true} style={{marginLeft:5,marginRight:5,margin:20}} >
+      <ScrollView horizontal={true} style={{marginLeft:5,marginRight:5,margin:20,backgroundColor:'#fff'}} >
         <View style={styles.container}>
 
           <View style={styles.header}>
@@ -388,7 +384,7 @@ const styles = StyleSheet.create({
   boton: {
     backgroundColor: '#6f42c1',
     paddingLeft: 10,
-    width: 140,
+    width: 160,
     borderRadius: 3,
     top: 10,
     height:25,
@@ -409,9 +405,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
 
   }, botonBuscar: {
-    top: 20,
+    top: 15,
     backgroundColor: '#6f42c1',
-    width: 130,
+    width: 150,
     borderRadius: 3,
     alignSelf: 'center',
     height: 25
@@ -468,7 +464,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 14,
     fontWeight:'bold',
-    left:15
+    left:30
     
 
   }

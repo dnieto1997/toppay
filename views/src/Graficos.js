@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
   boton: {
     backgroundColor: '#6f42c1',
     paddingLeft: 10,
-    width: 140,
+    width: 160,
     borderRadius: 3,
     alignItems: 'center',
     top: 10,
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
   }, botonBuscar: {
     top: 20,
     backgroundColor: '#6f42c1',
-    width: 130,
+    width: 150,
     borderRadius: 3,
     alignSelf: 'center',
     height: 25
@@ -334,12 +334,12 @@ const styles = StyleSheet.create({
 
   },texto5:{
     
-    textAlign:'left',
+    textAlign:'center',
     color: '#fff',
     textTransform: 'uppercase',
     fontSize: 14,
     fontWeight:'bold',
-    left:15
+    left:30
     
 
   }
