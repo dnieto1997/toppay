@@ -208,16 +208,16 @@ const PayoutAliado = () => {
     }
 
   }
+  if (pais === 1) {
+    Setcurrency("COP")
+} else if (pais === 2) {
+    Setcurrency("SOL")
+}
 
 
 
   const buscarFecha = async () => {
-    if (pais === 1) {
-      Setcurrency("COP")
-  } else if (pais === 2) {
-      Setcurrency("SOL")
-  }
-
+ 
 
 
     const FechaInicioFormat = fechainicio.getFullYear() + "-" + (fechainicio.getMonth() + 1) + "-" + fechainicio.getDate()
@@ -246,6 +246,7 @@ const PayoutAliado = () => {
      
       setpayouts(resJson[0].cantidad)
       setLoading(false)
+      console.log(resJson)
       
 
       const res3 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payoutdeclinedaliado', {

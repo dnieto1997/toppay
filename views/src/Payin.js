@@ -7,6 +7,7 @@ import { Text } from 'react-native-paper';
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -24,8 +25,35 @@ const Payin = () => {
   const [consultaRealizada, setConsultaRealizada] = useState(false);
   const [fechaiformateada, Setfechaiformateada] = useState('')
   const [fechafformateada, Setfechafformateada] = useState('')
+  const[pais,SetPais]=useState('')
+  const [currency, Setcurrency] = useState('')
+  const [token, setToken] = useState('');
 
 
+  
+  useEffect(()=>{
+    const obtenerToken =async () =>{
+    try {
+      const tokenStorage =await AsyncStorage.getItem('token') 
+      setToken(tokenStorage)
+      
+    
+   
+    } catch (error) {
+      console.log(error)
+      
+    }
+    
+    }
+    obtenerToken()
+    
+    })
+  
+  
+  
+  
+  
+  
   const showDatePicker = () => {
     setDatePickerVisibility(true);
    
@@ -93,8 +121,48 @@ const validacion =() =>{
   }, [consultaRealizada])
 
 
- 
+
+
+
+  
+
      
+  const Pais =async()=>{
+    try {
+        const res3 = await fetch(
+            'http://129.80.238.214:3000/api/menu',
+            {
+              method: 'GET',
+              headers: {
+                'x-token': `${token}`,
+              }
+            },
+          );
+    
+
+
+
+          const {pais} = await res3.json();
+        SetPais(pais)
+        console.log("Pais payin",pais)
+        
+        
+         
+   
+    } catch (error) {
+        
+    }
+   
+  
+  }
+
+  useEffect(()=>{
+    Pais()
+    
+})
+ 
+
+
 
 
 
@@ -103,6 +171,11 @@ const validacion =() =>{
 
   const buscarFecha = async () => {
 
+    if (pais === 1) {
+      Setcurrency("COP")
+  } else if (pais === 2) {
+      Setcurrency("SOL")
+  }
 
 
     const FechaInicioFormat = fechainicio.getFullYear() + "-" + (fechainicio.getMonth() + 1) + "-" + fechainicio.getDate()
@@ -123,7 +196,8 @@ const validacion =() =>{
         body: JSON.stringify({
           fechainicio: `${FechaInicioFormat}`,
           fechafin: `${FechaFinFormat}`,
-          status: `${status}`
+          status: `${status}`,
+          currency: `${currency}`
         }),
       });
 
@@ -143,10 +217,10 @@ const validacion =() =>{
       });
 
 
-
+       
       setResultado(resJson)
       setConsultaRealizada(true);
-
+      console.log("whay",resJson)
 
 
 
@@ -179,16 +253,16 @@ const validacion =() =>{
 
 
   return (
-
+<View style={{flex:1,backgroundColor:'#fff'}}>
     <ScrollView>
 
 
       <View>
         <Picker onValueChange={(valor) => setStatus(valor)} selectedValue={status} style={{ textAlign: 'center' }}  >
-          <Picker.Item label='--- Seleccione Estado ---' value="" />
+          <Picker.Item label='--Seleccione estado--' value="" />
           <Picker.Item label='Success' value="1" />
           <Picker.Item label='Declined' value="3" />
-
+          <Picker.Item label='Pending' value="2" />
         </Picker>
       </View>
 
@@ -233,16 +307,15 @@ const validacion =() =>{
       </View>
 
       <View style={{ top: 20, alignSelf: 'center' }}>
-        <TouchableOpacity  onPress={() => validacion()} style={styles.botonBuscar} disabled={consultaRealizada}>   
+        <TouchableOpacity  onPress={() => validacion()} style={styles.botonBuscar} disabled={consultaRealizada}>  
         <View style={{flexDirection:'row'}}>
           
         <Image source={require('../../assets/img/buscar.png')} style={[styles.imagen,{left:10}]}/><Text style={styles.texto5}>Buscar</Text>
           
           </View>
-        
-        
-        
-        </TouchableOpacity>
+          
+          
+          </TouchableOpacity>
       </View>
       <View  >
         <PieChart
@@ -277,6 +350,7 @@ const validacion =() =>{
 
 
     </ScrollView>
+    </View>
   )
 }
 
@@ -329,8 +403,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     textTransform: 'uppercase',
     fontSize: 15,
-    fontWeight:'bold',
-    top:1
+    fontWeight:'bold'
     
 
   },texto5:{
@@ -340,8 +413,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 14,
     fontWeight:'bold',
-    left:30,
-    top:1
+    left:30
     
 
   }

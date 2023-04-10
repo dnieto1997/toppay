@@ -9,8 +9,8 @@ const Pais =() =>{
     
     <Picker onValueChange={(valor)=>setPais(valor)} selectedValue={pais}  >
         <Picker.Item label='-- Seleccione Pais --' value=""/>
-        <Picker.Item label='Colombia' value="COP"/>
-        <Picker.Item label='Peru' value="PER"/>
+        <Picker.Item label='Colombia' value="1"/>
+        <Picker.Item label='Peru' value="2"/>
         
         </Picker>
         

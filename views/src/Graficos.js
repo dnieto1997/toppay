@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
 import { PieChart } from 'react-native-chart-kit';
-import { Dimensions, View, ScrollView, StyleSheet, Alert, Button,TouchableOpacity,Image } from 'react-native';
+import { Dimensions, View, ScrollView, StyleSheet, Alert, Button, TouchableOpacity, Image } from 'react-native';
 import globalStyles from '../global/styles';
 import { Text } from 'react-native-paper';
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from '@react-native-picker/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -24,11 +25,15 @@ const Graficos = () => {
   const [consultaRealizada, setConsultaRealizada] = useState(false);
   const [fechaiformateada, Setfechaiformateada] = useState('')
   const [fechafformateada, Setfechafformateada] = useState('')
+  const [pais, SetPais] = useState('')
+
+  const [token, setToken] = useState('');
+
 
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
-   
+
 
   };
 
@@ -37,10 +42,10 @@ const Graficos = () => {
   };
 
   const handleConfirm = (date) => {
-   
+
     setfechainicio(date)
     hideDatePicker();
-   
+
   };
 
 
@@ -55,7 +60,7 @@ const Graficos = () => {
   };
 
   const handleConfirm2 = (date) => {
-    
+
     setfechafin(date)
     hideDatePicker2();
     falso()
@@ -64,21 +69,38 @@ const Graficos = () => {
   };
 
 
-const falso = () =>{
-  setConsultaRealizada(false)
-}
-
-const validacion =() =>{
-  if(fechaiformateada>fechafformateada){
-    mostrarAlerta()
-    
-    
-  }else{
-    buscarFecha()
-    return
+  const falso = () => {
+    setConsultaRealizada(false)
   }
-  
-}
+
+  const validacion = () => {
+    if (fechaiformateada > fechafformateada) {
+      mostrarAlerta()
+
+
+    } else {
+      buscarFecha()
+      return
+    }
+
+  }
+  useEffect(() => {
+    const obtenerToken = async () => {
+      try {
+        const tokenStorage = await AsyncStorage.getItem('token')
+        setToken(tokenStorage)
+
+
+
+      } catch (error) {
+        console.log(error)
+
+      }
+
+    }
+    obtenerToken()
+
+  })
 
 
 
@@ -86,15 +108,61 @@ const validacion =() =>{
 
     if (!consultaRealizada) {
       validacion()
-  }
+    }
 
 
 
   }, [consultaRealizada])
 
 
+
+
+
+
+
+
+  const Pais = async () => {
+    try {
+      const res3 = await fetch(
+        'http://129.80.238.214:3000/api/menu',
+        {
+          method: 'GET',
+          headers: {
+            'x-token': `${token}`,
+          }
+        },
+      );
+
+
+      const { pais } = await res3.json();
+      
+    if (pais === 1) {
+      SetPais("COP")
+    } else if (pais === 2) {
+      SetPais("SOL")
+    }
+
+
  
-     
+      
+
+
+
+
+
+    } catch (error) {
+
+    }
+
+
+  }
+
+  useEffect(() => {
+    Pais()
+
+  })
+
+
 
 
 
@@ -104,13 +172,12 @@ const validacion =() =>{
   const buscarFecha = async () => {
 
 
-
     const FechaInicioFormat = fechainicio.getFullYear() + "-" + (fechainicio.getMonth() + 1) + "-" + fechainicio.getDate()
     const FechaFinFormat = fechafin.getFullYear() + "-" + (fechafin.getMonth() + 1) + "-" + fechafin.getDate()
 
-   Setfechaiformateada(FechaInicioFormat)
-   Setfechafformateada(FechaFinFormat)
-  
+    Setfechaiformateada(FechaInicioFormat)
+    Setfechafformateada(FechaFinFormat)
+
 
     try {
 
@@ -123,7 +190,8 @@ const validacion =() =>{
         body: JSON.stringify({
           fechainicio: `${FechaInicioFormat}`,
           fechafin: `${FechaFinFormat}`,
-          status: `${status}`
+          status: `${status}`,
+          currency: `${pais}`
         }),
       });
 
@@ -143,7 +211,7 @@ const validacion =() =>{
       });
 
 
-
+      console.log("Lo lanza vacio", resJson)
       setResultado(resJson)
       setConsultaRealizada(true);
 
@@ -154,7 +222,7 @@ const validacion =() =>{
       console.log(err);
 
     }
-  
+
 
 
 
@@ -173,109 +241,110 @@ const validacion =() =>{
 
 
 
-
+console.log(fechainicio)
+console.log(fechafin)
 
 
 
 
   return (
-<View style={{flex:1,backgroundColor:'#fff'}}>
-    <ScrollView>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <ScrollView>
 
 
-      <View>
-        <Picker onValueChange={(valor) => setStatus(valor)} selectedValue={status} style={{ textAlign: 'center' }}  >
-          <Picker.Item label='--Seleccione estado--' value="" />
-          <Picker.Item label='Success' value="1" />
-          <Picker.Item label='Declined' value="3" />
-          <Picker.Item label='Pending' value="2" />
-        </Picker>
-      </View>
+        <View>
+          <Picker onValueChange={(valor) => setStatus(valor)} selectedValue={status} style={{ textAlign: 'center' }}  >
+            <Picker.Item label='--Seleccione estado--' value="" />
+            <Picker.Item label='Success' value="1" />
+            <Picker.Item label='Declined' value="3" />
+            <Picker.Item label='Pending' value="2" />
+          </Picker>
+        </View>
 
-      <View style={styles.contenedor}>
-
-      
-      
-        <TouchableOpacity onPress={showDatePicker} style={styles.boton} color='#6f42c1'  >
-         
-         <View style={{flexDirection:'row'}}>
-          <Image source={require('../global/Img/fecha.png')} style={styles.imagen}/>
-          <Text style={styles.texto2}> Fecha inicial</Text>
-          </View>
-        </TouchableOpacity>
-      
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-          format='yyyy-mm-dd'
-          date={fechainicio}
-        />
-
-
-        <TouchableOpacity title="Fecha Final" onPress={showDatePicker2} style={styles.boton} color='#6f42c1'><View style={{flexDirection:'row'}}>
-          <Image source={require('../global/Img/fecha.png')} style={styles.imagen}/>
-          <Text style={styles.texto2}> Fecha Final</Text>
-          </View></TouchableOpacity>
-        <DateTimePickerModal
-          date={fechafin}
-          isVisible={isDatePickerVisible2}
-          mode="date"
-          onConfirm={handleConfirm2}
-          onCancel={hideDatePicker2}
-          format='yyyy-mm-dd'
-
-        />
+        <View style={styles.contenedor}>
 
 
 
-      </View>
+          <TouchableOpacity onPress={showDatePicker} style={styles.boton} color='#6f42c1'  >
 
-      <View style={{ top: 20, alignSelf: 'center' }}>
-        <TouchableOpacity  onPress={() => validacion()} style={styles.botonBuscar} disabled={consultaRealizada}>  
-        <View style={{flexDirection:'row'}}>
-          
-        <Image source={require('../../assets/img/buscar.png')} style={[styles.imagen,{left:10}]}/><Text style={styles.texto5}>Buscar</Text>
-          
-          </View>
-          
-          
+            <View style={{ flexDirection: 'row' }}>
+              <Image source={require('../global/Img/fecha.png')} style={styles.imagen} />
+              <Text style={styles.texto2}> Fecha inicial</Text>
+            </View>
           </TouchableOpacity>
-      </View>
-      <View  >
-        <PieChart
-        data={resultado}
-        width={Dimensions.get('window').width -5 }
-        height={220}
-        chartConfig={{
-          backgroundColor: '#1cc910',
-          backgroundGradientFrom: '#eff3ff',
-          backgroundGradientTo: '#efefef',
-          decimalPlaces: 2,
-          
-          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          style: {
-            borderRadius: 16,
+
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+            format='yyyy-mm-dd'
+            date={fechainicio}
+          />
 
 
-            },
-          }}
-          style={{
-            marginVertical: 20,
-            borderRadius: 12,
-            top: 30,
-          }}
-          accessor="population"
-          backgroundColor="transparent"
+          <TouchableOpacity title="Fecha Final" onPress={showDatePicker2} style={styles.boton} color='#6f42c1'><View style={{ flexDirection: 'row' }}>
+            <Image source={require('../global/Img/fecha.png')} style={styles.imagen} />
+            <Text style={styles.texto2}> Fecha Final</Text>
+          </View></TouchableOpacity>
+          <DateTimePickerModal
+            date={fechafin}
+            isVisible={isDatePickerVisible2}
+            mode="date"
+            onConfirm={handleConfirm2}
+            onCancel={hideDatePicker2}
+            format='yyyy-mm-dd'
 
-          absolute //for the absolute number remove if you want percentage
-        />
-
-      </View>
+          />
 
 
-    </ScrollView>
+
+        </View>
+
+        <View style={{ top: 20, alignSelf: 'center' }}>
+          <TouchableOpacity onPress={() => validacion()} style={styles.botonBuscar} disabled={consultaRealizada}>
+            <View style={{ flexDirection: 'row' }}>
+
+              <Image source={require('../../assets/img/buscar.png')} style={[styles.imagen, { left: 10 }]} /><Text style={styles.texto5}>Buscar</Text>
+
+            </View>
+
+
+          </TouchableOpacity>
+        </View>
+        <View  >
+          <PieChart
+            data={resultado}
+            width={Dimensions.get('window').width - 5}
+            height={220}
+            chartConfig={{
+              backgroundColor: '#1cc910',
+              backgroundGradientFrom: '#eff3ff',
+              backgroundGradientTo: '#efefef',
+              decimalPlaces: 2,
+
+              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              style: {
+                borderRadius: 16,
+
+
+              },
+            }}
+            style={{
+              marginVertical: 20,
+              borderRadius: 12,
+              top: 30,
+            }}
+            accessor="population"
+            backgroundColor="transparent"
+
+            absolute //for the absolute number remove if you want percentage
+          />
+
+        </View>
+
+
+      </ScrollView>
     </View>
   )
 }
@@ -288,7 +357,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     alignItems: 'center',
     top: 10,
-    height:25
+    height: 25
 
   },
   texto: {
@@ -296,8 +365,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     textTransform: 'uppercase',
     fontSize: 15,
-    fontWeight:'bold'
-    
+    fontWeight: 'bold'
+
 
   }, contenedor: {
     top: 10,
@@ -313,34 +382,34 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 25
 
-  },imagen:{
-    width:20,
-    height:20,
-    alignSelf:'flex-start',
-    top:1
-    
-    
- 
-   
-    
-  },texto2:{
-    
-    textAlign:'left',
+  }, imagen: {
+    width: 20,
+    height: 20,
+    alignSelf: 'flex-start',
+    top: 1
+
+
+
+
+
+  }, texto2: {
+
+    textAlign: 'left',
     color: '#fff',
     textTransform: 'uppercase',
     fontSize: 15,
-    fontWeight:'bold'
-    
+    fontWeight: 'bold'
 
-  },texto5:{
-    
-    textAlign:'center',
+
+  }, texto5: {
+
+    textAlign: 'center',
     color: '#fff',
     textTransform: 'uppercase',
     fontSize: 14,
-    fontWeight:'bold',
-    left:30
-    
+    fontWeight: 'bold',
+    left: 30
+
 
   }
 })

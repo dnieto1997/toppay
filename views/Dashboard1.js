@@ -15,6 +15,8 @@ import {
 
 import globalStyles from './global/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from '@react-native-picker/picker'
+
 
 
 
@@ -41,7 +43,9 @@ const Dashboard1 = () => {
     const [todaystransactionerrorin, setttodaystransactionerrorin] = useState('');
     const [todaymoneyout, settodaymoneyout] = useState('');
     const [todaystransactionout, settodaystransactionout] = useState('');
-    const[pais,SetPais]=useState('')
+    const[pais,setPais]=useState('')
+    const [tipo, setTipo] = useState('');
+    const [user, setUser] = useState('')
   
    
   
@@ -80,10 +84,71 @@ const Dashboard1 = () => {
      
      
     });
+
+    useEffect(()=>{
+      TipoUser()
+    })
+    
+
+    const TipoUser =async()=>{
+      try {
+      
+        const res2 = await fetch(
+          'http://129.80.238.214:3000/api/menu',
+          {
+            method: 'GET',
+            headers: {
+              'x-token': `${token}`,
+            }
+          },
+        );
+      
+      
+        const { tipo, status } = await res2.json();
+        setTipo(tipo)
+        
+      } catch (error) {
+        
+      }
+      
+      
+      
+      
+          }
+
+          useEffect(() => {
+            buscarUser()
+          
+          })
+          const buscarUser = async () => {
+
+            try {
+              const res2 = await fetch(
+                'http://129.80.238.214:3000/api/menu',
+                {
+                  method: 'GET',
+                  headers: {
+                    'x-token': `${token}`,
+                  }
+                },
+              );
+        
+        
+              const { usuario } = await res2.json();
+              setUser(usuario)
+           
+        
+            } catch (error) {
+        
+            }
+        
+          }
   
  
 
-  
+  useEffect(()=>{
+    Pais()
+  },[])
     const Pais =async()=>{
       try {
           const res3 = await fetch(
@@ -98,7 +163,7 @@ const Dashboard1 = () => {
       
       
             const {pais} = await res3.json();
-          SetPais(pais)
+          setPais(pais)
           
           
            
@@ -110,7 +175,46 @@ const Dashboard1 = () => {
     
     }
 
+
+    useEffect(()=>{
+      CambiarPais()
+    })
+
+    const CambiarPais =async()=>{
+      try {
+        const res = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/cambiarpais', {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user: `${user}`,
+            pais: `${pais}`,
+  
+          }),
+        });
+  
+  
+        const resJson = await res.json();
+       console.log(resJson)
+        
+        
+          
+  
+      } catch (error) {
+       console.log(error)
+      }
+  
+     
+    
+    }
+
+
    
+
+
+
 
 
 
@@ -269,14 +373,17 @@ const Dashboard1 = () => {
  
   return (
 
-  
+  <>
+     
+    {tipo==="MA"?<Picker onValueChange={(valor)=>setPais(valor)} selectedValue={pais}  >
+        <Picker.Item label='-- Seleccione Pais --' value=""/>
+        <Picker.Item label='Colombia' value="1"/>
+        <Picker.Item label='Peru' value="2"/>
+        
+        </Picker>:<></>}
+
   
     <ScrollView  refreshControl={<RefreshControl refreshing={refresh} onRefresh={()=>pullMe()}/>}>
-
-
-
-  
-       
    
     <View style={styles.contenedor}>
       <View style={globalStyles.contenedor2}>
@@ -373,6 +480,7 @@ const Dashboard1 = () => {
       </View>
     </View>
   </ScrollView>
+  </>
 );
    
 }

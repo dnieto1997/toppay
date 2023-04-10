@@ -31,7 +31,8 @@ const Utilidades = () => {
   const [token, setToken] = useState('');
   const [pais, SetPais] = useState('')
   const [user, SetUser] = useState('')
-  const [aliado, setAliado] = useState('')
+
+
 
 
   const showDatePicker = () => {
@@ -166,6 +167,7 @@ const Utilidades = () => {
 
 
   const buscarFecha = async () => {
+
 
 
 
@@ -337,7 +339,7 @@ const Utilidades = () => {
       </TouchableOpacity>
       
       <>
-      <ScrollView horizontal={true} style={{marginLeft:5,marginRight:5,margin:10}} >
+      <ScrollView horizontal={true} style={{marginLeft:5,marginRight:5,marginBottom:30}} >
         <View style={styles.container}>
 
           <View style={styles.header}>
@@ -432,7 +434,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#fff",
-    top: 40
+    top: 40,
+    marginBottom:30
   },
   header: {
     flexDirection: 'row',
