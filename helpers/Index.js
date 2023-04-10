@@ -28,3 +28,13 @@ export const formatearCantidad = cantidad =>{
         )
         
         }
+
+
+        export const formatearCantidad3 = cantidad =>{
+
+            return new Intl.NumberFormat("es-CL").format(cantidad);
+            
+            }
+
+
+        

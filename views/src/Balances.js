@@ -10,7 +10,7 @@ import { Text } from 'react-native-paper';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { formatearCantidad,formatearCantidad2 } from '../../helpers/Index';
+import { formatearCantidad,formatearCantidad2,formatearCantidad3 } from '../../helpers/Index';
 
 
 
@@ -108,6 +108,13 @@ const Balances = () => {
 
                 const { pais } = await res3.json();
                 SetPais(pais)
+                
+                if (pais === 1) {
+                    Setcurrency("COP")
+                } else if (pais === 2) {
+                    Setcurrency("SOL")
+                }
+        
 
 
 
@@ -131,12 +138,7 @@ const Balances = () => {
 
     const balance = async () => {
 
-        if (pais === 1) {
-            Setcurrency("COP")
-        } else if (pais === 2) {
-            Setcurrency("SOL")
-        }
-
+      
 
         try {
 
@@ -317,9 +319,9 @@ console.log("Hace BOOM",resultado)
                 <Text style={styles.cell}>{item.aliado}</Text>
                 <Text style={styles.cell}>{item.bancoaliado}</Text>
                 <Text style={styles.cell}>{item.cuenta}</Text>
-                <Text style={styles.cell}>{item.valor}</Text>
+                <Text style={styles.cell}>{formatearCantidad3(item.valor) }</Text>
                 <Text style={styles.cell}>{item.tipon} </Text>
-                <Text style={styles.cell}>{item.gmf} </Text>
+                <Text style={styles.cell}>{formatearCantidad3(item.gmf)  } </Text>
                 <Text style={styles.cell}>{item.estadon} </Text>
     
     

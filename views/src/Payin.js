@@ -220,7 +220,7 @@ const validacion =() =>{
        
       setResultado(resJson)
       setConsultaRealizada(true);
-      console.log("whay",resJson)
+    console.log(res)
 
 
 
@@ -307,7 +307,7 @@ const validacion =() =>{
       </View>
 
       <View style={{ top: 20, alignSelf: 'center' }}>
-        <TouchableOpacity  onPress={() => validacion()} style={styles.botonBuscar} /* disabled={consultaRealizada} */>  
+        <TouchableOpacity  onPress={() => validacion()} style={styles.botonBuscar} disabled={consultaRealizada} >  
         <View style={{flexDirection:'row'}}>
           
         <Image source={require('../../assets/img/buscar.png')} style={[styles.imagen,{left:10}]}/><Text style={styles.texto5}>Buscar</Text>

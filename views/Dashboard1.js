@@ -166,6 +166,7 @@ const Dashboard1 = () => {
           setPais(pais)
           
           
+          
            
      
       } catch (error) {
@@ -174,7 +175,7 @@ const Dashboard1 = () => {
      
     
     }
-
+    console.log("pais",pais)
 
     useEffect(()=>{
       CambiarPais()
@@ -196,8 +197,8 @@ const Dashboard1 = () => {
         });
   
   
-        const resJson = await res.json();
-       console.log(resJson)
+        
+      
         
         
           

@@ -74,13 +74,13 @@ const Graficos = () => {
   }
 
   const validacion = () => {
-    if (fechaiformateada > fechafformateada) {
+    if (fechainicio > fechafin) {
       mostrarAlerta()
-
+      return
 
     } else {
       buscarFecha()
-      return
+     
     }
 
   }
@@ -133,9 +133,9 @@ const Graficos = () => {
         },
       );
 
-
+      setConsultaRealizada(true);
       const { pais } = await res3.json();
-      
+       console.log(pais)
     if (pais === 1) {
       SetPais("COP")
     } else if (pais === 2) {
@@ -211,10 +211,10 @@ const Graficos = () => {
       });
 
 
-      console.log("Lo lanza vacio", resJson)
+     
       setResultado(resJson)
       setConsultaRealizada(true);
-
+      console.log("Lo lanza vacio", res)
 
 
 
@@ -241,8 +241,6 @@ const Graficos = () => {
 
 
 
-console.log(fechainicio)
-console.log(fechafin)
 
 
 
@@ -302,7 +300,7 @@ console.log(fechafin)
         </View>
 
         <View style={{ top: 20, alignSelf: 'center' }}>
-          <TouchableOpacity onPress={() => validacion()} style={styles.botonBuscar}/*  disabled={consultaRealizada} */>
+          <TouchableOpacity onPress={() => validacion()} style={styles.botonBuscar} disabled={consultaRealizada} >
             <View style={{ flexDirection: 'row' }}>
 
               <Image source={require('../../assets/img/buscar.png')} style={[styles.imagen, { left: 10 }]} /><Text style={styles.texto5}>Buscar</Text>

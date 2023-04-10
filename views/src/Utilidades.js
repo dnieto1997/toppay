@@ -9,7 +9,7 @@ import { Text } from 'react-native-paper';
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { formatearCantidad3 } from '../../helpers/Index';
 
 
 
@@ -97,11 +97,6 @@ const Utilidades = () => {
   },[])
 
 
-  useEffect(() => {
-    Pais()
-   
-
-  })
 
 
 
@@ -138,10 +133,12 @@ const Utilidades = () => {
 
 
   }
+  
+
 
   useEffect(() => {
     validacion()
-    
+    Pais()
     
       },[consultaRealizada])
     
@@ -236,14 +233,14 @@ const Utilidades = () => {
       <Text style={styles.cell}>{obtenerNombreDelMes(item.fecha)}</Text>
       <Text style={styles.cell}>{item.cliente}</Text>
       <Text style={styles.cell}>{item.transacciones}</Text>
-      <Text style={styles.cell}>{item.sumatoria.toFixed(2)}</Text>
-      <Text style={styles.cell}>{item.utilidad}</Text>
+      <Text style={styles.cell}>{formatearCantidad3(item.sumatoria.toFixed(2))    }</Text>
+      <Text style={styles.cell}>{formatearCantidad3(item.utilidad) }</Text>
         <View style={{flexDirection:'column'}}>
-      <Text style={styles.cell}>{item.payin.toFixed(2)} </Text>
+      <Text style={styles.cell}>{formatearCantidad3(item.payin.toFixed(2))   } </Text>
        <Text style={{textAlign:'center'}}>({item.payincount})</Text>
        </View>
        <View style={{flexDirection:'column'}}>
-      <Text style={styles.cell}>{item.payout.toFixed(2)} </Text>
+      <Text style={styles.cell}>{formatearCantidad3(item.payout.toFixed(2))   } </Text>
        <Text style={{textAlign:'center'}}>({item.payoutcount})</Text>
        </View>
 
