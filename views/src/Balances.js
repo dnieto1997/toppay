@@ -238,8 +238,17 @@ const Balances = () => {
     }
 
 
+    const Actualizacion = async () =>{
+        Dispersiones()
+    }
 
 
+
+    useEffect(()=>{
+        
+        Actualizacion()
+         
+    },[])
 
     const Dispersiones = async () => {
 
@@ -264,7 +273,7 @@ const Balances = () => {
 
             setResultado(resJson)
            
-            console.log(resJson)
+          
 
 
 
@@ -280,9 +289,7 @@ const Balances = () => {
 
     }
 
-    useEffect(()=>{
-  Dispersiones()
-    },[])
+  
 
     useEffect(() => {
         balance()
@@ -299,7 +306,7 @@ const Balances = () => {
     const totalSum = total1 - total2
 
 
-console.log("resultado",resultado)
+console.log("Hace BOOM",resultado)
 
       const renderItem = ({item}) => (
     
@@ -342,7 +349,7 @@ console.log("resultado",resultado)
 
     return (
        
-       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={()=>Dispersiones()} />}  style={{ backgroundColor: '#fff' }}>
+       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={()=>Actualizacion()} />}  style={{ backgroundColor: '#fff' }}>
        <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <View style={{ backgroundColor: '#fff' }}>
                 <View style={styles.contenedor}>
