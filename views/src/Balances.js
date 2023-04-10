@@ -280,6 +280,9 @@ const Balances = () => {
 
     }
 
+    useEffect(()=>{
+  Dispersiones()
+    },[])
 
     useEffect(() => {
         balance()
