@@ -242,7 +242,7 @@ const Balances = () => {
 
     const Actualizacion = async () =>{
         Dispersiones()
-    }
+    };
 
 
 
