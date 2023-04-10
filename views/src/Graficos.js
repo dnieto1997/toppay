@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
     textAlign:'left',
     color: '#fff',
     textTransform: 'uppercase',
-    fontSize: 14,
+    fontSize: 15,
     fontWeight:'bold'
     
 

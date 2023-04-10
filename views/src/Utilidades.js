@@ -93,7 +93,7 @@ const Utilidades = () => {
     }
     obtenerToken()
 
-  }, [])
+  },[])
 
 
   useEffect(() => {
@@ -121,7 +121,7 @@ const Utilidades = () => {
 
       const { pais } = await res3.json();
 
-      console.log(pais)
+      console.log("pais",pais)
 
       if (pais == 1) {
         SetPais('COP')
@@ -138,7 +138,12 @@ const Utilidades = () => {
 
   }
 
-
+  useEffect(() => {
+    validacion()
+    
+    
+      },[consultaRealizada])
+    
 
   const validacion =() =>{
     if(fechaiformateada>fechafformateada){
@@ -152,11 +157,6 @@ const Utilidades = () => {
     
   }
 
-  useEffect(() => {
-validacion()
-
-
-  },[consultaRealizada])
 
 
 
@@ -193,7 +193,7 @@ validacion()
       });
 
       const resJson = await res.json();
-    console.log(resJson)
+  
 
       setResultado(resJson)
       setConsultaRealizada(true);
@@ -283,9 +283,8 @@ validacion()
     }
   }
   
-  console.log(fechainicio)
-  console.log(fechafin)
-  console.log(resultado)
+
+  console.log("porque sale asi",resultado)
 
   return (
 
@@ -337,8 +336,8 @@ validacion()
 
       </TouchableOpacity>
       
-      <View>
-      <ScrollView horizontal={true} style={{marginLeft:5,marginRight:5,margin:20,backgroundColor:'#fff'}} >
+      <>
+      <ScrollView horizontal={true} style={{marginLeft:5,marginRight:5,margin:10}} >
         <View style={styles.container}>
 
           <View style={styles.header}>
@@ -361,7 +360,7 @@ validacion()
 
         </View>
       </ScrollView>
-      </View>
+      </>
      
    
       
@@ -427,7 +426,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     textTransform: 'uppercase',
     fontSize: 14,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    left:10
   }, container: {
     flex: 1,
     padding: 16,

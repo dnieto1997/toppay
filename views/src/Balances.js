@@ -339,7 +339,7 @@ console.log("resultado",resultado)
 
     return (
        
-       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={()=>Dispersiones()} />}  style={{ backgroundColor: 'transparent' }}>
+       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={()=>Dispersiones()} />}  style={{ backgroundColor: '#fff' }}>
        <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <View style={{ backgroundColor: '#fff' }}>
                 <View style={styles.contenedor}>
@@ -373,10 +373,6 @@ console.log("resultado",resultado)
 
             <ScrollView horizontal={true} >
        
-
-
-
-
 
      <View style={styles.container}>
                  <View style={styles.header}>
@@ -482,7 +478,8 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 16,
         backgroundColor: "#fff",
-        top: 40
+        top: 40,
+        marginBottom:30
     },
     header: {
         flexDirection: 'row',

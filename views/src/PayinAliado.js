@@ -442,7 +442,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     textTransform: 'uppercase',
     fontSize: 14,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    top:1
     
 
   },texto5:{
@@ -452,7 +453,8 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 14,
     fontWeight:'bold',
-    left:15
+    left:15,
+    top:1
     
 
   }

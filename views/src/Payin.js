@@ -328,8 +328,9 @@ const styles = StyleSheet.create({
     textAlign:'left',
     color: '#fff',
     textTransform: 'uppercase',
-    fontSize: 14,
-    fontWeight:'bold'
+    fontSize: 15,
+    fontWeight:'bold',
+    top:1
     
 
   },texto5:{
@@ -339,7 +340,8 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 14,
     fontWeight:'bold',
-    left:30
+    left:30,
+    top:1
     
 
   }

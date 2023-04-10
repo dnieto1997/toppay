@@ -27,7 +27,7 @@ const PayoutAliado = () => {
   const [payouts, setpayouts] = useState('')
   const [payoutd, setpayoutd] = useState('')
   const[pais,SetPais]=useState('')
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [currency, Setcurrency] = useState('')
 
 
@@ -245,6 +245,7 @@ const PayoutAliado = () => {
 
      
       setpayouts(resJson[0].cantidad)
+      setLoading(false)
       
 
       const res3 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payoutdeclinedaliado', {
@@ -449,7 +450,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     textTransform: 'uppercase',
     fontSize: 14,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    top:1
     
 
   },texto5:{
@@ -459,7 +461,8 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 14,
     fontWeight:'bold',
-    left:15
+    left:15,
+    top:1
     
 
   }
