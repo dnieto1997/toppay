@@ -451,7 +451,7 @@ const styles = StyleSheet.create({
     textAlign:'left',
     color: '#fff',
     textTransform: 'uppercase',
-    fontSize: 14,
+    fontSize: 12.5,
     fontWeight:'bold',
     top:1
     
@@ -461,7 +461,7 @@ const styles = StyleSheet.create({
     textAlign:'left',
     color: '#fff',
     textTransform: 'uppercase',
-    fontSize: 14,
+    fontSize: 12.5,
     fontWeight:'bold',
     left:15,
     top:1

@@ -146,9 +146,7 @@ const Dashboard1 = () => {
   
  
 
-  useEffect(()=>{
-    Pais()
-  },[])
+
     const Pais =async()=>{
       try {
           const res3 = await fetch(
@@ -170,16 +168,17 @@ const Dashboard1 = () => {
            
      
       } catch (error) {
-          
+          console.log(error)
       }
      
     
     }
-    console.log("pais",pais)
-
+  
     useEffect(()=>{
-      CambiarPais()
-    })
+      Pais()
+    },[])
+
+   
 
     const CambiarPais =async()=>{
       try {
@@ -213,7 +212,9 @@ const Dashboard1 = () => {
 
 
    
-
+    useEffect(()=>{
+      CambiarPais()
+    })
 
 
 

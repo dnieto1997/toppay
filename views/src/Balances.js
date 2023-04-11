@@ -10,7 +10,7 @@ import { Text } from 'react-native-paper';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { formatearCantidad,formatearCantidad2,formatearCantidad3 } from '../../helpers/Index';
+import { formatearCantidad, formatearCantidad2, formatearCantidad3 } from '../../helpers/Index';
 
 
 
@@ -108,13 +108,13 @@ const Balances = () => {
 
                 const { pais } = await res3.json();
                 SetPais(pais)
-                
+
                 if (pais === 1) {
                     Setcurrency("COP")
                 } else if (pais === 2) {
                     Setcurrency("SOL")
                 }
-        
+
 
 
 
@@ -126,9 +126,9 @@ const Balances = () => {
         }
         Pais()
 
-    })
+    },[])
 
-    
+
 
 
 
@@ -138,7 +138,7 @@ const Balances = () => {
 
     const balance = async () => {
 
-      
+
 
         try {
 
@@ -158,10 +158,9 @@ const Balances = () => {
             const resJson = await res.json();
             setpayin(resJson[0].payin)
             setpayout(resJson[0].payout)
-
-
-
-            console.log("lo arroja vacio", resJson)
+            
+            
+        
 
 
 
@@ -219,14 +218,10 @@ const Balances = () => {
 
             const resJson2 = await res2.json();
             setbalancepayout(resJson2[0].valor)
-
-            
-
-
-
-
-
-
+          
+         
+           
+    
 
 
         } catch (err) {
@@ -234,23 +229,29 @@ const Balances = () => {
 
 
         }
+     
 
-        setLoading(false);
-
+     
     }
 
 
-    const Actualizacion = async () =>{
+    const Actualizacion = async () => {
+       
         Dispersiones()
-    };
-
-
-
-    useEffect(()=>{
         
+      
+        
+        
+        
+    }
+
+
+
+    useEffect(() => {
+
         Actualizacion()
-         
-    },[])
+
+    },[total1])
 
     const Dispersiones = async () => {
 
@@ -274,9 +275,10 @@ const Balances = () => {
 
 
             setResultado(resJson)
-           
-          
 
+            console.log("algo", resJson)
+            
+            setLoading(false);
 
 
 
@@ -291,53 +293,53 @@ const Balances = () => {
 
     }
 
-  
+
 
     useEffect(() => {
         balance()
         balancetotal()
+        
     })
-
-
-
-
 
 
     const total1 = Math.round(payin) + Math.round(balancepayin)
     const total2 = Math.round(payout) + Math.round(balancepayout)
     const totalSum = total1 - total2
+   
+
+   console.log(total1)
+   console.log(total2)
+   console.log(totalSum)
+
+  
+
+    const renderItem = ({ item }) => (
+
+        <View style={styles.row}>
+
+            <Text style={styles.cell2}>{item.id}</Text>
+            <Text style={styles.cell}>{item.fechapago}</Text>
+            <Text style={styles.cell}>{item.aliado}</Text>
+            <Text style={styles.cell}>{item.bancoaliado}</Text>
+            <Text style={styles.cell}>{item.cuenta}</Text>
+            <Text style={styles.cell}>{formatearCantidad3(item.valor)}</Text>
+            <Text style={styles.cell}>{item.tipon} </Text>
+            <Text style={styles.cell}>{formatearCantidad3(item.gmf)} </Text>
+            <Text style={styles.cell}>{item.estadon} </Text>
 
 
-console.log("Hace BOOM",resultado)
+        </View>
 
-      const renderItem = ({item}) => (
-    
-            <View style={styles.row}>
-    
-                <Text style={styles.cell2}>{item.id}</Text>
-                <Text style={styles.cell}>{item.fechapago}</Text>
-                <Text style={styles.cell}>{item.aliado}</Text>
-                <Text style={styles.cell}>{item.bancoaliado}</Text>
-                <Text style={styles.cell}>{item.cuenta}</Text>
-                <Text style={styles.cell}>{formatearCantidad3(item.valor) }</Text>
-                <Text style={styles.cell}>{item.tipon} </Text>
-                <Text style={styles.cell}>{formatearCantidad3(item.gmf)  } </Text>
-                <Text style={styles.cell}>{item.estadon} </Text>
-    
-    
-            </View>
-    
-        );
-    
-
-       
+    );
 
 
 
 
 
 
-    if (loading || !totalSum) {
+
+
+    if (loading||!totalSum) {
 
 
         return (
@@ -350,69 +352,69 @@ console.log("Hace BOOM",resultado)
 
 
     return (
-       
-       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={()=>Actualizacion()} />}  style={{ backgroundColor: '#fff' }}>
-       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-            <View style={{ backgroundColor: '#fff' }}>
-                <View style={styles.contenedor}>
 
-                    <View style={{ flexDirection: 'column', right: 40 }}>
-                        <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Total Pay-In</Text>
-                        <Text style={[styles.texto3, { color: 'black', top: 9 }]}> Recaudo: </Text>
-                        <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais=="1"?formatearCantidad(Math.round(payin)) : formatearCantidad2(Math.round(payin))}</Text>
-                        <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Consignacion: </Text>
-                        <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais=="1"?formatearCantidad(Math.round(balancepayin)) : formatearCantidad2(Math.round(balancepayin)) } </Text>
-                        <Text style={[styles.texto3, { color: 'green', top: 18 }]}> {pais=="1"?formatearCantidad(Math.round(total1)) : formatearCantidad2(Math.round(total1))} </Text>
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => Actualizacion()} />} style={{ backgroundColor: '#fff' }}>
+            <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                <View style={{ backgroundColor: '#fff' }}>
+                    <View style={styles.contenedor}>
+
+                        <View style={{ flexDirection: 'column', right: 40 }}>
+                            <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Total Pay-In</Text>
+                            <Text style={[styles.texto3, { color: 'black', top: 9 }]}> Recaudo: </Text>
+                            <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais == "1" ? formatearCantidad(Math.round(payin)) : formatearCantidad2(Math.round(payin))}</Text>
+                            <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Consignacion: </Text>
+                            <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais == "1" ? formatearCantidad(Math.round(balancepayin)) : formatearCantidad2(Math.round(balancepayin))} </Text>
+                            <Text style={[styles.texto3, { color: 'green', top: 18 }]}> {pais == "1" ? formatearCantidad(Math.round(total1)) : formatearCantidad2(Math.round(total1))} </Text>
+                        </View>
+                        <View style={{ flexDirection: 'column', left: 40 }}>
+                            <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Total Pay-Out</Text>
+                            <Text style={[styles.texto3, { color: 'black', top: 9 }]}> Prestamos: </Text>
+                            <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{pais == "1" ? formatearCantidad(Math.round(payout)) : formatearCantidad2(Math.round(payout))}</Text>
+                            <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Retiros: </Text>
+                            <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{pais == "1" ? formatearCantidad(Math.round(balancepayout)) : formatearCantidad2(Math.round(balancepayout))} </Text>
+                            <Text style={[styles.texto3, { color: 'red', top: 18 }]}> {pais == "1" ? formatearCantidad(Math.round(total2)) : formatearCantidad2(Math.round(total2))} </Text>
+                        </View>
+
                     </View>
-                    <View style={{ flexDirection: 'column', left: 40 }}>
-                        <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Total Pay-Out</Text>
-                        <Text style={[styles.texto3, { color: 'black', top: 9 }]}> Prestamos: </Text>
-                        <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{pais=="1"?formatearCantidad(Math.round(payout)) : formatearCantidad2(Math.round(payout))}</Text>
-                        <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Retiros: </Text>
-                        <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{ pais=="1"?formatearCantidad(Math.round(balancepayout)) : formatearCantidad2(Math.round(balancepayout))} </Text>
-                        <Text style={[styles.texto3, { color: 'red', top: 18 }]}> {pais=="1"?formatearCantidad(Math.round(total2)) : formatearCantidad2(Math.round(total2))} </Text>
+
+                    <View style={{ alignSelf: 'center', top: 30 }}>
+                        <Text> {pais == "1" ? formatearCantidad(Math.round(totalSum)) : formatearCantidad2(Math.round(totalSum))}</Text>
                     </View>
 
                 </View>
 
-                <View style={{ alignSelf: 'center', top: 30 }}>
-                    <Text> {pais=="1"?formatearCantidad(Math.round(totalSum)) : formatearCantidad2(Math.round(totalSum))}</Text>
-                </View>
 
+
+                <ScrollView horizontal={true} >
+
+
+                    <View style={styles.container}>
+                        <View style={styles.header}>
+
+                            <Text style={[styles.cell2, styles.headerText]}>Id</Text>
+                            <Text style={[styles.cell, styles.headerText]}>Fecha de Pago</Text>
+                            <Text style={[styles.cell, styles.headerText]}>Aliado</Text>
+                            <Text style={[styles.cell, styles.headerText]}>Banco</Text>
+                            <Text style={[styles.cell, styles.headerText]}>Cuenta</Text>
+                            <Text style={[styles.cell, styles.headerText]}>Valor</Text>
+                            <Text style={[styles.cell, styles.headerText]}>Tipo</Text>
+                            <Text style={[styles.cell, styles.headerText]}>GMF</Text>
+                            <Text style={[styles.cell, styles.headerText]}>Estado</Text>
+                        </View>
+                        <FlatList
+                            data={resultado}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item.id.toString()}
+                        />
+
+
+
+
+
+                    </View>
+
+                </ScrollView>
             </View>
-
-
-
-            <ScrollView horizontal={true} >
-       
-
-     <View style={styles.container}>
-                 <View style={styles.header}>
-
-                        <Text style={[styles.cell2, styles.headerText]}>Id</Text>
-                        <Text style={[styles.cell, styles.headerText]}>Fecha de Pago</Text>
-                        <Text style={[styles.cell, styles.headerText]}>Aliado</Text>
-                        <Text style={[styles.cell, styles.headerText]}>Banco</Text>
-                        <Text style={[styles.cell, styles.headerText]}>Cuenta</Text>
-                        <Text style={[styles.cell, styles.headerText]}>Valor</Text>
-                        <Text style={[styles.cell, styles.headerText]}>Tipo</Text>
-                        <Text style={[styles.cell, styles.headerText]}>GMF</Text>
-                        <Text style={[styles.cell, styles.headerText]}>Estado</Text>
-                    </View>
-                    <FlatList
-    data={resultado}
-    renderItem={renderItem}
-    keyExtractor={(item) => item.id.toString()}
-  />
-
-
-
-
-
-                </View> 
-
-</ScrollView>
-        </View>
 
         </ScrollView>
 
@@ -431,7 +433,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         top: 20
 
-    },head: { height: 40, backgroundColor: '#f1f8ff' },
+    }, head: { height: 40, backgroundColor: '#f1f8ff' },
     text: { margin: 6 },
     texto: {
         textAlign: 'center',
@@ -491,7 +493,7 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: "#fff",
         top: 40,
-        marginBottom:30
+        marginBottom: 30
     },
     header: {
         flexDirection: 'row',

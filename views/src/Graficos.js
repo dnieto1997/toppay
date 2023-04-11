@@ -74,7 +74,7 @@ const Graficos = () => {
   }
 
   const validacion = () => {
-    if (fechainicio > fechafin) {
+    if (fechaiformateada > fechafformateada) {
       mostrarAlerta()
       return
 
@@ -214,7 +214,7 @@ const Graficos = () => {
      
       setResultado(resJson)
       setConsultaRealizada(true);
-      console.log("Lo lanza vacio", res)
+      console.log("Lo lanza vacio", resJson)
 
 
 
@@ -395,7 +395,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: '#fff',
     textTransform: 'uppercase',
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: 'bold'
 
 
