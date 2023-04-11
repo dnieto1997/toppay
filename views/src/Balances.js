@@ -29,6 +29,10 @@ const Balances = () => {
     const [payout, setpayout] = useState('')
     const [balancepayout, setbalancepayout] = useState('')
     const [balancepayin, setbalancepayin] = useState('')
+  /* const [total1, settotal1] = useState('')
+    const [total2, settotal2] = useState('')
+    const [totalSum, settotalsum] = useState('')  */
+    const [count, setCount] = useState(5);
 
     useEffect(() => {
 
@@ -108,6 +112,7 @@ const Balances = () => {
 
                 const { pais } = await res3.json();
                 SetPais(pais)
+                
 
                 if (pais === 1) {
                     Setcurrency("COP")
@@ -115,7 +120,7 @@ const Balances = () => {
                     Setcurrency("SOL")
                 }
 
-
+                console.log("balance",pais)
 
 
             } catch (error) {
@@ -126,7 +131,7 @@ const Balances = () => {
         }
         Pais()
 
-    },[])
+    })
 
 
 
@@ -180,8 +185,7 @@ const Balances = () => {
 
 
     const balancetotal = async () => {
-
-
+   
 
         try {
 
@@ -198,8 +202,7 @@ const Balances = () => {
                 }),
             });
 
-            const resJson = await res.json();
-            setbalancepayin(resJson[0].valor)
+            
 
 
             const res2 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/balancepayin', {
@@ -218,8 +221,11 @@ const Balances = () => {
 
             const resJson2 = await res2.json();
             setbalancepayout(resJson2[0].valor)
-          
-         
+            const resJson = await res.json();
+            setbalancepayin(resJson[0].valor)
+            
+   
+
            
     
 
@@ -231,28 +237,33 @@ const Balances = () => {
         }
      
 
-     
-    }
-
-
-    const Actualizacion = async () => {
-       
-        Dispersiones()
-        
-      
-        
-        
         
     }
 
 
+    const total1 = Math.round(payin) + Math.round(balancepayin)
+    const total2 = Math.round(payout) + Math.round(balancepayout)
+    const totalSum = total1 - total2
+    
 
     useEffect(() => {
 
-        Actualizacion()
+        Dispersiones()
+  
+     setLoading(false)
+      
+          
+        
+    },[])
+    
+    useEffect(() => {
+        
+       balance()
+        balancetotal()
 
-    },[total1])
-
+        
+    })
+ 
     const Dispersiones = async () => {
 
 
@@ -276,11 +287,10 @@ const Balances = () => {
 
             setResultado(resJson)
 
-            console.log("algo", resJson)
+            console.log("algo", res)
+         
             
-            setLoading(false);
-
-
+           
 
 
 
@@ -290,28 +300,23 @@ const Balances = () => {
 
         }
 
-
+       
     }
 
 
 
-    useEffect(() => {
-        balance()
-        balancetotal()
-        
-    })
+  
 
 
-    const total1 = Math.round(payin) + Math.round(balancepayin)
-    const total2 = Math.round(payout) + Math.round(balancepayout)
-    const totalSum = total1 - total2
+
    
 
-   console.log(total1)
-   console.log(total2)
-   console.log(totalSum)
 
   
+
+    console.log(total1)
+    console.log(total2)
+    console.log(totalSum)
 
     const renderItem = ({ item }) => (
 
@@ -337,9 +342,8 @@ const Balances = () => {
 
 
 
-
-
-    if (loading||!totalSum) {
+ 
+    if (loading) {
 
 
         return (
@@ -353,7 +357,7 @@ const Balances = () => {
 
     return (
 
-        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => Actualizacion()} />} style={{ backgroundColor: '#fff' }}>
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => Dispersiones()} />} style={{ backgroundColor: '#fff' }}>
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
                 <View style={{ backgroundColor: '#fff' }}>
                     <View style={styles.contenedor}>
@@ -361,24 +365,24 @@ const Balances = () => {
                         <View style={{ flexDirection: 'column', right: 40 }}>
                             <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Total Pay-In</Text>
                             <Text style={[styles.texto3, { color: 'black', top: 9 }]}> Recaudo: </Text>
-                            <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais == "1" ? formatearCantidad(Math.round(payin)) : formatearCantidad2(Math.round(payin))}</Text>
+                            <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais === 2 ? formatearCantidad2(Math.round(payin)) : formatearCantidad(Math.round(payin))}</Text>
                             <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Consignacion: </Text>
-                            <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais == "1" ? formatearCantidad(Math.round(balancepayin)) : formatearCantidad2(Math.round(balancepayin))} </Text>
-                            <Text style={[styles.texto3, { color: 'green', top: 18 }]}> {pais == "1" ? formatearCantidad(Math.round(total1)) : formatearCantidad2(Math.round(total1))} </Text>
+                            <Text style={[styles.texto3, { color: 'green', top: 7 }]}>{pais === 2 ? formatearCantidad2(Math.round(balancepayin)) : formatearCantidad(Math.round(balancepayin))} </Text>
+                            <Text style={[styles.texto3, { color: 'green', top: 18 }]}> {pais === 2 ? formatearCantidad2(Math.round(total1)) : formatearCantidad(Math.round(total1))} </Text>
                         </View>
                         <View style={{ flexDirection: 'column', left: 40 }}>
                             <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Total Pay-Out</Text>
                             <Text style={[styles.texto3, { color: 'black', top: 9 }]}> Prestamos: </Text>
-                            <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{pais == "1" ? formatearCantidad(Math.round(payout)) : formatearCantidad2(Math.round(payout))}</Text>
+                            <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{pais === 2 ? formatearCantidad2(Math.round(payout)) : formatearCantidad(Math.round(payout))}</Text>
                             <Text style={[styles.texto3, { color: 'black', top: 7 }]}> Retiros: </Text>
-                            <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{pais == "1" ? formatearCantidad(Math.round(balancepayout)) : formatearCantidad2(Math.round(balancepayout))} </Text>
-                            <Text style={[styles.texto3, { color: 'red', top: 18 }]}> {pais == "1" ? formatearCantidad(Math.round(total2)) : formatearCantidad2(Math.round(total2))} </Text>
+                            <Text style={[styles.texto3, { color: 'red', top: 7 }]}>{pais === 2 ? formatearCantidad2(Math.round(balancepayout)) : formatearCantidad(Math.round(balancepayout))} </Text>
+                            <Text style={[styles.texto3, { color: 'red', top: 18 }]}> {pais === 2 ? formatearCantidad2(Math.round(total2)) : formatearCantidad(Math.round(total2))} </Text>
                         </View>
 
                     </View>
 
                     <View style={{ alignSelf: 'center', top: 30 }}>
-                        <Text> {pais == "1" ? formatearCantidad(Math.round(totalSum)) : formatearCantidad2(Math.round(totalSum))}</Text>
+                        <Text> {pais === 2 ? formatearCantidad2(Math.round(totalSum)) : formatearCantidad(Math.round(totalSum))}</Text>
                     </View>
 
                 </View>
