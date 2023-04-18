@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from 'react'
+import React, { useState, useEffect } from 'react'
 
 
 
@@ -6,12 +6,12 @@ import React, { useState, useEffect, Component } from 'react'
 
 import { RefreshControl, FlatList, View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 
-import { Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { formatearCantidad, formatearCantidad2, formatearCantidad3 } from '../../helpers/Index';
-
+import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
 
 
 const Balances = () => {
@@ -23,51 +23,19 @@ const Balances = () => {
     const [user, SetUser] = useState('')
     const [aliado, setAliado] = useState('')
     const [loading, setLoading] = useState(true);
-    const [refreshing, setRefreshing] = useState(false);
+    const [refresh, setRefresh] = useState(true);
     const [currency, Setcurrency] = useState('')
     const [payin, setpayin] = useState('')
     const [payout, setpayout] = useState('')
     const [balancepayout, setbalancepayout] = useState('')
     const [balancepayin, setbalancepayin] = useState('')
-  /* const [total1, settotal1] = useState('')
+    const [total1, settotal1] = useState('')
     const [total2, settotal2] = useState('')
-    const [totalSum, settotalsum] = useState('')  */
-    const [count, setCount] = useState(5);
-
-    useEffect(() => {
-
-
-        const BuscarAliado = async () => {
-            try {
-
-                const res2 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/buscar', {
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        user: `${user}`,
-
-                    }),
-                });
-
-                const resJson = await res2.json();
-                const logMerchantId = resJson[0].log_merchantid
-
-                setAliado(logMerchantId)
+    const [totalSum, settotalsum] = useState('')
 
 
 
 
-            } catch (error) {
-                console.log(error)
-            }
-
-
-        }
-        BuscarAliado()
-    })
 
 
     useEffect(() => {
@@ -91,7 +59,49 @@ const Balances = () => {
         obtenerToken()
 
 
-    }, [])
+    })
+
+
+
+
+    useEffect(() => {
+
+
+        const BuscarAliado = async () => {
+            try {
+
+                const res2 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/buscar', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        user: `${user}`,
+
+                    }),
+                });
+
+                const resJson = await res2.json();
+
+
+                setAliado(resJson[0].resultado)
+                console.log("este es el id del alidado", resJson[0].resultado)
+
+
+
+
+            } catch (error) {
+                console.log(error)
+            }
+
+
+        }
+        BuscarAliado()
+    })
+
+
+
 
 
 
@@ -112,15 +122,10 @@ const Balances = () => {
 
                 const { pais } = await res3.json();
                 SetPais(pais)
-                
+                console.log("este es el pais", pais)
 
-                if (pais === 1) {
-                    Setcurrency("COP")
-                } else if (pais === 2) {
-                    Setcurrency("SOL")
-                }
 
-                console.log("balance",pais)
+
 
 
             } catch (error) {
@@ -137,12 +142,13 @@ const Balances = () => {
 
 
 
-
-
-
-
     const balance = async () => {
 
+        if (pais === 1) {
+            Setcurrency("COP")
+        } else if (pais === 2) {
+            Setcurrency("SOL")
+        }
 
 
         try {
@@ -163,9 +169,10 @@ const Balances = () => {
             const resJson = await res.json();
             setpayin(resJson[0].payin)
             setpayout(resJson[0].payout)
-            
-            
-        
+            console.log("payin", resJson[0].payin)
+            console.log("payout", resJson[0].payout)
+
+
 
 
 
@@ -185,49 +192,38 @@ const Balances = () => {
 
 
     const balancetotal = async () => {
-   
+
 
         try {
 
-            const res = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/balancepayout', {
+            const res = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payoutsuccesssperu', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    merchant: `${aliado}`,
-                    pais: `${pais}`
-
-                }),
-            });
-
-            
-
-
-            const res2 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/balancepayin', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    merchant: `${aliado}`,
+                    id: `${aliado}`,
                     pais: `${pais}`
 
                 }),
             });
 
 
-            const resJson2 = await res2.json();
-            setbalancepayout(resJson2[0].valor)
+
             const resJson = await res.json();
-            setbalancepayin(resJson[0].valor)
-            
-   
 
-           
-    
+            setbalancepayout(resJson[0].valor)
+
+
+            setbalancepayin(resJson[1].valor)
+
+
+
+
+
+
+
 
 
         } catch (err) {
@@ -235,35 +231,20 @@ const Balances = () => {
 
 
         }
-     
 
-        
+
+
     }
 
 
+    /* 
     const total1 = Math.round(payin) + Math.round(balancepayin)
-    const total2 = Math.round(payout) + Math.round(balancepayout)
-    const totalSum = total1 - total2
-    
+            const total2 = Math.round(payout) + Math.round(balancepayout)
+            const totalSum = total1 - total2   */
 
-    useEffect(() => {
 
-        Dispersiones()
-  
-     setLoading(false)
-      
-          
-        
-    },[])
-    
-    useEffect(() => {
-        
-       balance()
-        balancetotal()
 
-        
-    })
- 
+
     const Dispersiones = async () => {
 
 
@@ -284,13 +265,11 @@ const Balances = () => {
 
             const resJson = await res.json();
 
-
+            console.log("resultado2", res)
             setResultado(resJson)
 
-            console.log("algo", res)
-         
-            
-           
+            setLoading(false)
+
 
 
 
@@ -300,49 +279,92 @@ const Balances = () => {
 
         }
 
-       
+
+
+
+
+
     }
 
 
 
-  
-
-
-
-   
-
-
-  
-
-    console.log(total1)
-    console.log(total2)
-    console.log(totalSum)
-
-    const renderItem = ({ item }) => (
-
-        <View style={styles.row}>
-
-            <Text style={styles.cell2}>{item.id}</Text>
-            <Text style={styles.cell}>{item.fechapago}</Text>
-            <Text style={styles.cell}>{item.aliado}</Text>
-            <Text style={styles.cell}>{item.bancoaliado}</Text>
-            <Text style={styles.cell}>{item.cuenta}</Text>
-            <Text style={styles.cell}>{formatearCantidad3(item.valor)}</Text>
-            <Text style={styles.cell}>{item.tipon} </Text>
-            <Text style={styles.cell}>{formatearCantidad3(item.gmf)} </Text>
-            <Text style={styles.cell}>{item.estadon} </Text>
-
-
-        </View>
-
-    );
 
 
 
 
+    useEffect(() => {
+
+        balance()
+        balancetotal()
+        const total1 = Math.round(payin) + Math.round(balancepayin)
+        const total2 = Math.round(payout) + Math.round(balancepayout)
+        const totalSum = total1 - total2
+        settotal1(total1)
+        settotal2(total2)
+        settotalsum(totalSum)
 
 
- 
+    })
+
+
+    useEffect(() => {
+
+        const timeout = setTimeout(() => {
+            setRefresh(false);
+            Dispersiones()
+
+
+
+        }, 25000);
+
+        return () => clearTimeout(timeout);
+    }, []);
+
+    const handleRefresh = () => {
+        setRefresh(true);
+    };
+
+
+    /*    const renderItem = ({ item }) => (
+    
+            <View style={styles.row}>
+    
+                <Text style={styles.cell2}>{item.id}</Text>
+                <Text style={styles.cell}>{item.fechapago}</Text>
+                <Text style={styles.cell}>{item.aliado}</Text>
+                <Text style={styles.cell}>{item.bancoaliado}</Text>
+                <Text style={styles.cell}>{item.cuenta}</Text>
+                <Text style={styles.cell}>{formatearCantidad3(item.valor)}</Text>
+                <Text style={styles.cell}>{item.tipon} </Text>
+                <Text style={styles.cell}>{formatearCantidad3(item.gmf)} </Text>
+                <Text style={styles.cell}>{item.estadon} </Text>
+    
+    
+    
+            </View>
+    
+    
+    
+    
+        );  */
+
+    /*
+       const tableHead = ['Id', 'Fecha de Pago','Aliado','Banco','Cuenta','Valor','Tipo','GMF','Estado'];
+     const tableRows = tableData.map(item => [item.columna1, item.columna2]);
+    */
+
+
+
+    /*   <Text style={[styles.cell2, styles.headerText]}>Id</Text>
+      <Text style={[styles.cell, styles.headerText]}>Fecha de Pago</Text>
+      <Text style={[styles.cell, styles.headerText]}>Aliado</Text>
+      <Text style={[styles.cell, styles.headerText]}>Banco</Text>
+      <Text style={[styles.cell, styles.headerText]}>Cuenta</Text>
+      <Text style={[styles.cell, styles.headerText]}>Valor</Text>
+      <Text style={[styles.cell, styles.headerText]}>Tipo</Text>
+      <Text style={[styles.cell, styles.headerText]}>GMF</Text>
+      <Text style={[styles.cell, styles.headerText]}>Estado</Text> */
+
     if (loading) {
 
 
@@ -357,7 +379,7 @@ const Balances = () => {
 
     return (
 
-        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => Dispersiones()} />} style={{ backgroundColor: '#fff' }}>
+        <ScrollView refreshControl={<RefreshControl refreshing={refresh} onRefresh={() => handleRefresh()} />} style={{ backgroundColor: '#fff' }}>
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
                 <View style={{ backgroundColor: '#fff' }}>
                     <View style={styles.contenedor}>
@@ -407,15 +429,35 @@ const Balances = () => {
                         </View>
                         <FlatList
                             data={resultado}
-                            renderItem={renderItem}
-                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({ item }) =>
+                                <View style={styles.row}>
+                                    <Text style={styles.cell2}>{item.id}</Text>
+                                    <Text style={styles.cell}>{item.fechapago}</Text>
+                                    <Text style={styles.cell}>{item.aliado}</Text>
+                                    <Text style={styles.cell}>{item.bancoaliado}</Text>
+                                    <Text style={styles.cell}>{item.cuenta}</Text>
+                                    <Text style={styles.cell}>{formatearCantidad3(item.valor)}</Text>
+                                    <Text style={styles.cell}>{item.tipon} </Text>
+                                    <Text style={styles.cell}>{formatearCantidad3(item.gmf)} </Text>
+                                    <Text style={styles.cell}>{item.estadon} </Text>
+                                </View>
+                            }
+
+
                         />
 
 
 
 
 
+
+
+
+
                     </View>
+
+
+
 
                 </ScrollView>
             </View>
@@ -531,7 +573,7 @@ const styles = StyleSheet.create({
         borderRightColor: '#ddd',
         width: 40,
         height: 40
-    },
+    }
 
 
 })
