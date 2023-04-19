@@ -29,7 +29,10 @@ const Dashboard1 = () => {
     setRefresh(true)
      settodaystransactionout('')
      settodaymoneyout('')
-    setTimeout(()=>{
+     setTodaymoneyin('')
+     settodaystransactionin('')
+     setttodaystransactionerrorin('')
+     setTimeout(()=>{
   setRefresh(false)
   
 

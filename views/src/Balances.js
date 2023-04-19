@@ -11,7 +11,7 @@ import { Button, Text } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { formatearCantidad, formatearCantidad2, formatearCantidad3 } from '../../helpers/Index';
-import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
+//import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
 
 
 const Balances = () => {

@@ -255,7 +255,7 @@ const Graficos = () => {
             <Picker.Item label='--Seleccione estado--' value="" />
             <Picker.Item label='Success' value="1" />
             <Picker.Item label='Declined' value="3" />
-            <Picker.Item label='Pending' value="2" />
+            <Picker.Item label='Pending' value= "2" />
           </Picker>
         </View>
 
