@@ -237,10 +237,11 @@ const PayinAliado = () => {
       const resJson = await res2.json();
 
      
-      setpayouts(resJson[0].cantidad)
+      setpayouts(resJson[0].cantidad1)
+      setpayoutd(resJson[1].cantidad1)
       setIsLoading(false);
 
-      const res3 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payindeclinedaliado', {
+  /*     const res3 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payindeclinedaliado', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -257,7 +258,7 @@ const PayinAliado = () => {
 
       const resJson2 = await res3.json();
       setpayoutd(resJson2[0].cantidad)
-      setIsLoading(false);
+      setIsLoading(false); */
       
 
 
@@ -351,7 +352,7 @@ format='yyyy-mm-dd'
 
 <StackedBarChart
   data={{
-    labels: ['Pay out Success', 'Pay out Declined'],
+    labels: ['Pay in Success', 'Pay in Declined'],
     
 
     data: [

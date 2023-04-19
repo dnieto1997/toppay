@@ -227,7 +227,7 @@ const PayoutAliado = () => {
 
     try {
 
-      const res2 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payoutsuccessaliado', {
+      const res2 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payinsuccessperu', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -245,31 +245,13 @@ const PayoutAliado = () => {
       const resJson = await res2.json();
 
      
-      setpayouts(resJson[0].cantidad)
+      setpayouts(resJson[0].cantidad1)
+      setpayoutd(resJson[1].cantidad1)
+     
+     
+      console.log(resJson[0].cantidad)
       setLoading(false)
-      console.log(resJson)
-      
 
-      const res3 = await fetch('https://toppaylatam.com/Apireact/public/api/prueba/payoutdeclinedaliado', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fechainicio: `${FechaInicioFormat}`,
-          fechafin: `${FechaFinFormat}`,
-          aliado: `${aliado}`,
-          currency: `${currency}`
-
-        }),
-      });
-
-      const resJson2 = await res3.json();
-      setpayoutd(resJson2[0].cantidad)
-
-      setLoading(false)
-      
 
 
     } catch (err) {

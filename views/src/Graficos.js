@@ -80,7 +80,7 @@ const Graficos = () => {
 
     } else {
       buscarFecha()
-     
+
     }
 
   }
@@ -135,16 +135,16 @@ const Graficos = () => {
 
       setConsultaRealizada(true);
       const { pais } = await res3.json();
-       console.log(pais)
-    if (pais === 1) {
-      SetPais("COP")
-    } else if (pais === 2) {
-      SetPais("SOL")
-    }
+      console.log(pais)
+      if (pais === 1) {
+        SetPais("COP")
+      } else if (pais === 2) {
+        SetPais("SOL")
+      }
 
 
- 
-      
+
+
 
 
 
@@ -211,7 +211,7 @@ const Graficos = () => {
       });
 
 
-     
+
       setResultado(resJson)
       setConsultaRealizada(true);
       console.log("Lo lanza vacio", resJson)
@@ -255,7 +255,7 @@ const Graficos = () => {
             <Picker.Item label='--Seleccione estado--' value="" />
             <Picker.Item label='Success' value="1" />
             <Picker.Item label='Declined' value="3" />
-            <Picker.Item label='Pending' value= "2" />
+            <Picker.Item label='Pending' value="2" />
           </Picker>
         </View>
 
