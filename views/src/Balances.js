@@ -265,7 +265,7 @@ const Balances = () => {
 
             const resJson = await res.json();
 
-            console.log("resultado2", res)
+            console.log("resultado2deljson", resJson)
             setResultado(resJson)
 
             setLoading(false)

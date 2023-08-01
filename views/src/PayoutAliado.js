@@ -249,7 +249,7 @@ const PayoutAliado = () => {
       setpayoutd(resJson[1].cantidad1)
      
      
-      console.log(resJson[0].cantidad)
+      console.log("algogogogo",resJson)
       setLoading(false)
 
 
@@ -277,7 +277,7 @@ const PayoutAliado = () => {
 
   const datos = [payouts, payoutd]
 
-  console.log(datos)
+  console.log("algo",datos)
 
 
 
@@ -389,7 +389,7 @@ const styles = StyleSheet.create({
   boton: {
     backgroundColor: '#6f42c1',
     paddingLeft: 10,
-    width: 140,
+    width: 150,
     borderRadius: 3,
     alignItems: 'center',
     top: 10,
@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
     textAlign:'left',
     color: '#fff',
     textTransform: 'uppercase',
-    fontSize: 12.5,
+    fontSize: 12,
     fontWeight:'bold',
     top:1
     
